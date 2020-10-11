@@ -1,0 +1,46 @@
+@import '../scss/variables';
+
+.app {
+	height: 100vh;
+}
+
+.side {
+	width: 17.5%;
+}
+
+.main {
+	width: 82.5%;
+	box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.125);
+	z-index: 2;
+}
+
+.sidebar {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.title {
+	margin: 1.5rem 1.75rem;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+@media screen and (max-width: map-get($breakpoints, 's' )) {
+	.side {
+		width: 0%;
+		z-index: 3 !important;
+	}
+	.side.expanded {
+		width: 100%;
+		transition: width 0.15s linear;
+	}
+	.main {
+		width: 100%;
+	}
+}

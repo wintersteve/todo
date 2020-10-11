@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import './scss/variables';
+@import './scss/animations';
+@import './scss/mat-override';
+
+html,
+body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+	overflow: hidden;
+}
+
+:root {
+	@each $var, $color in $colors {
+		--#{$var}: #{$color};
+	}
+}
+
+.overlay::before {
+	content: '';
+	position: absolute;
+	width: 67%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background: rgba(0, 0, 0, 0.15);
+	pointer-events: none;
+	animation: fade-in 0.15s ease;
+}
+
+@media screen and (max-width: map-get($breakpoints, 's' )) {
+	.overlay::before {
+		content: none;
+	}
+}

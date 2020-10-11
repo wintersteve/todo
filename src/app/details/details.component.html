@@ -1,0 +1,66 @@
+<div class="details">
+	<form
+		#ngForm
+		(submit)="saved.emit(selectedTodo)"
+		(keydown.enter)="saved.emit(selectedTodo)"
+	>
+		<mat-form-field class="form-field">
+			<mat-label>Edit Title</mat-label>
+			<input
+				matInput
+				name="title"
+				type="text"
+				placeholder="What do you have to do?"
+				[(ngModel)]="selectedTodo.title"
+				autocomplete="off"
+				required
+			/>
+		</mat-form-field>
+
+		<mat-form-field class="form-field">
+			<mat-label>Edit List</mat-label>
+			<mat-select [(ngModel)]="selectedTodo.list" name="lists" required>
+				<mat-option *ngFor="let list of customLists" [value]="list.title">
+					{{ list.title }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="form-field" (click)="picker.open()">
+			<mat-label>Edit To Do Until</mat-label>
+			<input
+				matInput
+				[matDatepicker]="picker"
+				[value]="selectedTodo.doneUntil"
+			/>
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</mat-form-field>
+
+		<mat-form-field class="form-field">
+			<mat-label>Edit Notes</mat-label>
+			<textarea
+				matInput
+				placeholder="Would you like to add more information about the task?"
+				>{{ selectedTodo.notes }}</textarea
+			>
+		</mat-form-field>
+
+		<mat-slide-toggle
+			class="form-field"
+			matLine
+			name="urgent"
+			[(ngModel)]="selectedTodo.urgent"
+			>Urgent</mat-slide-toggle
+		>
+
+		<div class="btn-wrapper">
+			<button mat-stroked-button type="button" (click)="cancelled.emit()">
+				Cancel
+			</button>
+			<button mat-raised-button type="submit" color="primary">Save</button>
+		</div>
+	</form>
+
+	<!-- <pre style="white-space: pre-wrap">{{ selectedTodo | json }}</pre> -->
+</div>

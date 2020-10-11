@@ -1,0 +1,26 @@
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes slide-in {
+	0% {
+		right: -200px;
+	}
+	100% {
+		right: 0;
+	}
+}
+
+@keyframes expand {
+	0% {
+		padding: 0 2rem;
+	}
+	100% {
+		padding: 2rem;
+	}
+}

@@ -1,0 +1,49 @@
+.mat-checkbox-inner-container {
+	margin-right: 16px !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+textarea.mat-input-element {
+	line-height: 1.5;
+	height: 75px !important;
+}
+
+.mat-list-base .mat-list-item.mat-2-line,
+.mat-list-base .mat-list-option.mat-2-line {
+	height: 66px !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+	background-color: rgb(185 246 202 / 0.7);
+}
+
+// Cursor Animation, Icon, Label, Select Arrow Icon, Active List Item, Datepicker Icon
+.mat-input-element,
+.mat-icon.mat-primary,
+.mat-form-field.mat-focused .mat-form-field-label,
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow,
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled),
+.mat-datepicker-toggle-active {
+	color: var(--primary);
+	caret-color: var(--primary);
+}
+
+// Tooltip
+.mat-tooltip {
+	background: rgba(97, 97, 97, 1);
+	font-size: 0.7rem;
+}
+
+.mat-calendar-body-selected {
+	border: 0;
+}
+
+@media screen and (max-width: map-get($breakpoints, 's' )) {
+	.mat-list-base .mat-list-item .mat-list-item-content,
+	.mat-list-base .mat-list-option .mat-list-item-content {
+		padding: 0 4px !important;
+	}
+}

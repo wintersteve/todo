@@ -1,0 +1,34 @@
+@import '../../scss/variables';
+@import '../../scss/animations';
+
+.details {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40%;
+	height: 100%;
+	border-left: 1px solid rgba(255, 255, 255, 0.12);
+	padding: 1.5rem;
+	box-sizing: border-box;
+	background-color: #303030;
+	box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	animation: slide-in 0.15s ease;
+}
+
+.form-field {
+	width: 100%;
+	margin: 0.5rem 0;
+}
+
+.btn-wrapper {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1.5rem;
+}
+
+@media screen and (max-width: map-get($breakpoints, 's' )) {
+	.details {
+		width: 100%;
+	}
+}

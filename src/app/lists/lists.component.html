@@ -1,0 +1,42 @@
+<mat-action-list class="lists">
+	<mat-list-item
+		*ngFor="let list of lists"
+		[class]="list === selectedList ? 'active' : 'inactive'"
+		(click)="selected.emit(list); toggled.emit()"
+	>
+		<mat-icon class="icon">{{ list.icon }}</mat-icon>
+		<span>{{ list.title }}</span>
+
+		<button
+			mat-icon-button
+			type="button"
+			class="edit-wrapper"
+			(click)="$event.stopPropagation()"
+			*ngIf="list.custom"
+		>
+			<mat-icon class="edit" aria-hidden="false" aria-label="list options"
+				>edit</mat-icon
+			>
+		</button>
+	</mat-list-item>
+	<mat-list-item *ngIf="clickedAddBtn">
+		<mat-icon class="icon">layers</mat-icon>
+		<mat-form-field class="new-list">
+			<input
+				#newList
+				matInput
+				id="newList"
+				name="newList"
+				[(ngModel)]="newListTitle"
+				autocomplete="off"
+				(blur)="createList()"
+				required
+			/>
+		</mat-form-field>
+	</mat-list-item>
+</mat-action-list>
+
+<button class="btn" mat-button (click)="addList()">
+	<mat-icon class="icon">add</mat-icon>
+	New List
+</button>

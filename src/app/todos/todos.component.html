@@ -1,0 +1,112 @@
+<div class="row">
+	<div>
+		<button mat-button style="padding: 0" (click)="expanded.emit()">
+			<div class="mobile-navigation">
+				<mat-icon>arrow_left</mat-icon>
+				<div>Select list</div>
+			</div>
+		</button>
+		<h1 class="title">
+			<mat-icon class="flex-gap">{{ selectedList.icon }}</mat-icon>
+			{{ selectedList.title }}
+		</h1>
+	</div>
+	<button mat-flat-button (click)="added.emit()">New</button>
+</div>
+
+<mat-action-list
+	class="todos"
+	[style]="selectedTodo.id ? { width: '60%' } : { width: '100%' }"
+	*ngIf="todos.length !== 0; else noTodos"
+>
+	<label class="item-wrapper" *ngFor="let todo of todos">
+		<mat-list-item
+			[ngClass]="{
+				item: true,
+				done: todo.done,
+				selected:
+					todo === selectedTodo || (todo.id === notes.id && notes.active)
+			}"
+		>
+			<mat-checkbox
+				matLine
+				class="checkbox"
+				[checked]="todo.done"
+				[(ngModel)]="todo.done"
+				(ngModelChange)="clicked.emit(todo.id)"
+				><span class="todo-title">{{ todo.title }}</span>
+				<small class="category" matLine>{{ todo.list }}</small>
+			</mat-checkbox>
+
+			<button mat-button *ngIf="todo.urgent" class="icon">
+				<mat-icon
+					matListIcon
+					aria-hidden="false"
+					aria-label="Urgent todo"
+					color="primary"
+					class="urgent"
+				>
+					flag</mat-icon
+				>
+			</button>
+
+			<button
+				mat-button
+				*ngIf="todo.notes"
+				[ngClass]="{ icon: true, active: todo.id === notes.id && notes.active }"
+				(click)="showNotes(todo.id)"
+			>
+				<mat-icon
+					matListIcon
+					aria-hidden="false"
+					aria-label="Urgent todo"
+					color="primary"
+					class="urgent"
+				>
+					comment</mat-icon
+				>
+			</button>
+
+			<button
+				#tooltip="matTooltip"
+				[matTooltip]="daysUntilCompletion.content"
+				matTooltipPosition="left"
+				matTooltipHideDelay="50"
+				aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+				class="icon"
+				(click)="$event.stopPropagation()"
+				(mouseenter)="getDaysLeft(todo)"
+			>
+				<mat-icon
+					matListIcon
+					aria-hidden="false"
+					aria-label="Urgent todo"
+					color="primary"
+					class="clock"
+				>
+					schedule</mat-icon
+				>
+			</button>
+
+			<button
+				mat-button
+				class="icon"
+				type="button"
+				(click)="selected.emit(todo.id)"
+			>
+				<mat-icon matListIcon aria-hidden="false" aria-label="list options">
+					notes</mat-icon
+				>
+			</button>
+		</mat-list-item>
+		<div class="notes" *ngIf="todo.id === notes.id && notes.active">
+			{{ todo.notes }}
+		</div>
+	</label>
+</mat-action-list>
+
+<ng-template #noTodos
+	><div class="no-todos">
+		Click on the add button to add a new to do item
+	</div></ng-template
+>

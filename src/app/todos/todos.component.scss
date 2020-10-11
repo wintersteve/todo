@@ -1,0 +1,104 @@
+@import '../../scss/variables';
+@import '../../scss/animations';
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2rem 1.75rem 1rem;
+}
+
+.mobile-navigation {
+	display: none;
+	align-items: center;
+}
+
+.title {
+	margin: 0;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+}
+
+.flex-gap {
+	margin-right: 0.5rem;
+}
+
+.todos {
+	display: block;
+	overflow: hidden;
+	transition: all 0.15s linear;
+}
+
+.item-wrapper {
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.item {
+	user-select: none;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.checkbox[ng-reflect-checked='true'] {
+	text-decoration: line-through;
+}
+
+.category {
+	line-height: 1.1;
+	color: #999;
+}
+
+.icon {
+	padding: 0;
+	min-width: 36px;
+	margin-right: 0.5rem;
+	display: flex;
+	justify-content: center;
+
+	& .clock,
+	.urgent {
+		font-size: 20px;
+		width: 20px;
+		height: 20px;
+	}
+
+	&.active {
+		background: #424242;
+	}
+}
+
+.notes {
+	padding: 0 2rem;
+	background: rgba(255, 255, 255, 0.04);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	overflow: hidden;
+	animation: expand 0.15s ease forwards;
+}
+
+.done {
+	color: var(--light);
+}
+
+.selected {
+	background-color: var(--bg-light);
+}
+
+.no-todos {
+	margin: 2rem;
+}
+
+@media screen and (max-width: map-get($breakpoints, 's' )) {
+	.row {
+		margin: 1rem 1.1rem;
+	}
+	.mobile-navigation {
+		display: flex;
+	}
+	.todo-title {
+		font-size: 0.95rem;
+	}
+	.notes {
+		padding: 1.5rem;
+	}
+}

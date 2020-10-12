@@ -30,5 +30,6 @@
 @media screen and (max-width: map-get($breakpoints, 's' )) {
 	.details {
 		width: 100%;
+		border-left: 0;
 	}
 }

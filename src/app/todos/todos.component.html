@@ -1,9 +1,13 @@
 <div class="row">
 	<div>
-		<button mat-button style="padding: 0" (click)="expanded.emit()">
+		<button
+			mat-button
+			class="mobile-navigation-button"
+			(click)="expanded.emit()"
+		>
 			<div class="mobile-navigation">
 				<mat-icon>arrow_left</mat-icon>
-				<div>Select list</div>
+				<span>Select list</span>
 			</div>
 		</button>
 		<h1 class="title">

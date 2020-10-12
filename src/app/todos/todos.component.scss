@@ -8,8 +8,13 @@
 	margin: 2rem 1.75rem 1rem;
 }
 
-.mobile-navigation {
+.mobile-navigation-button {
 	display: none;
+	padding: 0;
+}
+
+.mobile-navigation {
+	display: flex;
 	align-items: center;
 }
 
@@ -92,7 +97,7 @@
 	.row {
 		margin: 1rem 1.1rem;
 	}
-	.mobile-navigation {
+	.mobile-navigation-button {
 		display: flex;
 	}
 	.todo-title {

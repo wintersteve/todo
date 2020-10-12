@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
 			this.todosService.create(todo);
 		} else this.todosService.update(todo);
 		this.cancel();
+		this.loadTodos();
 	}
 
 	addTodo(): void {

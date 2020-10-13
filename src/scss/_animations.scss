@@ -9,10 +9,10 @@
 
 @keyframes slide-in {
 	0% {
-		right: -200px;
+		transform: translateX(200px);
 	}
 	100% {
-		right: 0;
+		transform: translateX(0px);
 	}
 }
 

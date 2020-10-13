@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {differenceInCalendarDays, format} from 'date-fns';
+import { differenceInCalendarDays, format } from 'date-fns';
 import { list } from '../shared/interfaces/list';
 import { todo } from '../shared/interfaces/todo';
 
 interface Notes {
-	id: string; 
+	id: string;
 	active: boolean;
 }
 
-interface DaysUntilCompletion {
-	id: string,
-	content: string
+interface DaysUntilCompletion {
+	id: string;
+	content: string;
 }
 
 @Component({
@@ -28,7 +28,7 @@ export class TodosComponent {
 	@Output() added = new EventEmitter();
 
 	notes: Notes = { id: '', active: false };
-	daysUntilCompletion: DaysUntilCompletion  = {id: '', content: ''};
+	daysUntilCompletion: DaysUntilCompletion = { id: '', content: '' };
 
 	showNotes(id: string): void {
 		if (this.notes.active && this.notes.id === id) {
@@ -43,7 +43,7 @@ export class TodosComponent {
 		const daysLeft = differenceInCalendarDays(todo.doneUntil, new Date());
 		const formatted = format(todo.doneUntil, 'dd.MM.yyyy');
 		const content = this.getTooltipContent(formatted, daysLeft);
-	 	this.daysUntilCompletion = {id: todo.id, content}
+		this.daysUntilCompletion = { id: todo.id, content };
 	}
 
 	getTooltipContent(formatted: string, daysLeft: number): string {

@@ -111,4 +111,19 @@
 	.notes-wrapper {
 		padding: 1.5rem;
 	}
+	.icon {
+		margin-right: 0;
+
+		&:last-of-type {
+			margin-right: 0.5rem;
+		}
+
+		&.clock,
+		.notes,
+		.urgent {
+			font-size: 16px;
+			width: 16px;
+			height: 16px;
+		}
+	}
 }

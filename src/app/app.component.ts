@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadInititalList();
 		this.loadTodos();
-		this.sort();
+		// this.sort();
 	}
 
 	constructor(

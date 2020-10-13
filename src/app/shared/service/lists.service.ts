@@ -17,7 +17,7 @@ export class ListsService {
 		{ id: uuidv4(), title: 'Inbox', icon: 'inbox', custom: false },
 		{ id: uuidv4(), title: 'Today', icon: 'today', custom: false },
 		{ id: uuidv4(), title: 'Urgent', icon: 'flag', custom: false },
-		{ id: uuidv4(), title: 'Done', icon: 'check_cirlce', custom: false },
+		{ id: uuidv4(), title: 'Done', icon: 'check_circle', custom: false },
 		{ id: uuidv4(), title: 'List 1', icon: 'layers', custom: true },
 		{ id: uuidv4(), title: 'List 2', icon: 'layers', custom: true },
 		{ id: uuidv4(), title: 'List 3', icon: 'layers', custom: true },

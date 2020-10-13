@@ -12,7 +12,7 @@ export class TodosService {
 		title: '',
 		notes: '',
 		list: '',
-		doneUntil: new Date(),
+		doneUntil: undefined,
 		urgent: false,
 		done: false,
 	};

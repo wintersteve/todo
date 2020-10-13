@@ -80,6 +80,7 @@
 				class="icon"
 				(click)="$event.stopPropagation()"
 				(mouseenter)="getDaysLeft(todo)"
+				*ngIf="todo.doneUntil"
 			>
 				<mat-icon
 					matListIcon

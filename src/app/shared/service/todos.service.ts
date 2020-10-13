@@ -110,9 +110,6 @@ export class TodosService {
 			case 'Urgent':
 				return this.todos.filter((todo) => todo.urgent);
 				break;
-			case 'Pending':
-				return this.todos.filter((todo) => !todo.done);
-				break;
 			case 'Done':
 				return this.todos.filter((todo) => todo.done);
 				break;

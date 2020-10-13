@@ -56,16 +56,16 @@
 
 			<button
 				mat-button
-				*ngIf="todo.notes"
 				[ngClass]="{ icon: true, active: todo.id === notes.id && notes.active }"
 				(click)="showNotes(todo.id)"
+				[disabled]="!todo.notes ? true : false"
 			>
 				<mat-icon
 					matListIcon
 					aria-hidden="false"
 					aria-label="Urgent todo"
 					color="primary"
-					class="urgent"
+					[ngClass]="{ notes: true, hide: !todo.notes }"
 				>
 					comment</mat-icon
 				>
@@ -80,14 +80,14 @@
 				class="icon"
 				(click)="$event.stopPropagation()"
 				(mouseenter)="getDaysLeft(todo)"
-				*ngIf="todo.doneUntil"
+				[disabled]="!todo.doneUntil ? true : false"
 			>
 				<mat-icon
 					matListIcon
 					aria-hidden="false"
 					aria-label="Urgent todo"
 					color="primary"
-					class="clock"
+					[ngClass]="{ clock: true, hide: !todo.doneUntil }"
 				>
 					schedule</mat-icon
 				>
@@ -104,7 +104,7 @@
 				>
 			</button>
 		</mat-list-item>
-		<div class="notes" *ngIf="todo.id === notes.id && notes.active">
+		<div class="notes-wrapper" *ngIf="todo.id === notes.id && notes.active">
 			{{ todo.notes }}
 		</div>
 	</label>

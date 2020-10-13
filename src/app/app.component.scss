@@ -34,12 +34,14 @@
 @media screen and (max-width: map-get($breakpoints, 's' )) {
 	.side {
 		width: 0%;
+		transform: translateX(-400px) !important;
 		border-right: 0;
 		z-index: 3 !important;
 	}
 	.side.expanded {
 		width: 100%;
-		transition: width 0.15s linear;
+		transform: translateX(0px) !important;
+		transition: width, transform 0.15s ease;
 	}
 	.main {
 		width: 100%;

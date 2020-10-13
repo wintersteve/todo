@@ -24,17 +24,16 @@ export class TodosService {
 			notes:
 				'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit mollitia odio molestias corrupti, a sint reiciendis natus vel voluptas deleniti possimus magnam vero eligendi quas blanditiis tempora, consequatur ullam assumenda!',
 			list: 'List 1',
-			doneUntil: new Date(),
+			doneUntil: undefined,
 			urgent: true,
 			done: false,
 		},
 		{
 			id: uuidv4(),
 			title: 'Add Service Workers',
-			notes:
-				'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit mollitia odio molestias corrupti, a sint reiciendis natus vel voluptas deleniti possimus magnam vero eligendi quas blanditiis tempora, consequatur ullam assumenda!',
+			notes: '',
 			list: 'List 2',
-			doneUntil: addDays(new Date(), 1),
+			doneUntil: undefined,
 			urgent: false,
 			done: true,
 		},
@@ -64,15 +63,14 @@ export class TodosService {
 			notes:
 				'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit mollitia odio molestias corrupti, a sint reiciendis natus vel voluptas deleniti possimus magnam vero eligendi quas blanditiis tempora, consequatur ullam assumenda!',
 			list: 'List 1',
-			doneUntil: addDays(new Date(), 3),
+			doneUntil: undefined,
 			urgent: false,
 			done: false,
 		},
 		{
 			id: uuidv4(),
 			title: 'This is another todo',
-			notes:
-				'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit mollitia odio molestias corrupti, a sint reiciendis natus vel voluptas deleniti possimus magnam vero eligendi quas blanditiis tempora, consequatur ullam assumenda!',
+			notes: '',
 			list: 'List 2',
 			doneUntil: addDays(new Date(), 1),
 			urgent: false,

@@ -30,6 +30,7 @@
 				[(ngModel)]="newListTitle"
 				autocomplete="off"
 				(blur)="createList()"
+				(keydown.enter)="createList()"
 				required
 			/>
 		</mat-form-field>

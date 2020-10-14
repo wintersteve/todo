@@ -30,8 +30,9 @@
 			<mat-label>Edit To Do Until</mat-label>
 			<input
 				matInput
+				name="doneUntil"
 				[matDatepicker]="picker"
-				[value]="selectedTodo.doneUntil"
+				[(ngModel)]="selectedTodo.doneUntil"
 			/>
 			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 			<mat-datepicker #picker></mat-datepicker>
@@ -41,7 +42,9 @@
 			<mat-label>Edit Notes</mat-label>
 			<textarea
 				matInput
+				name="notes"
 				placeholder="Would you like to add more information about the task?"
+				[(ngModel)]="selectedTodo.notes"
 				>{{ selectedTodo.notes }}</textarea
 			>
 		</mat-form-field>
@@ -61,6 +64,4 @@
 			<button mat-raised-button type="submit" color="primary">Save</button>
 		</div>
 	</form>
-
-	<!-- <pre style="white-space: pre-wrap">{{ selectedTodo | json }}</pre> -->
 </div>

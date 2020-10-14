@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
 	}
 
 	saveTodo(todo: todo): void {
+		console.log(todo);
 		if (todo.new) {
 			delete todo.new;
 			this.todosService.create(todo);

@@ -3,6 +3,11 @@
 		<mat-icon class="header-icon">{{ selectedList.icon }}</mat-icon>
 		{{ selectedList.title }}
 	</h1>
+	<mat-progress-bar
+		mode="determinate"
+		[value]="percentDone"
+		class="progress-bar"
+	></mat-progress-bar>
 	<button mat-icon-button class="mobile-menu" (click)="expanded.emit()">
 		<mat-icon>menu</mat-icon>
 	</button>

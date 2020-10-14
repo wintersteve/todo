@@ -81,6 +81,15 @@ export class TodosComponent implements OnInit, OnChanges {
 		return content;
 	}
 
+	get percentDone() {
+		const amountDone = this.todos.reduce(
+			(result, todo) => (result += todo.done ? 1 : 0),
+			0
+		);
+		if (this.todos.length > 0) return (amountDone / this.todos.length) * 100;
+		else return 0;
+	}
+
 	ngOnInit() {
 		this.loadTodos();
 	}
@@ -88,6 +97,7 @@ export class TodosComponent implements OnInit, OnChanges {
 	ngOnChanges() {
 		this.loadTodos();
 		this.hideNotes();
+		console.log(this.percentDone);
 	}
 
 	constructor() {}

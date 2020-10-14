@@ -26,6 +26,11 @@
 	height: 20px;
 }
 
+.progress-bar {
+	height: 5px;
+	width: 7%;
+}
+
 .todos {
 	display: block;
 	padding: 0;
@@ -142,5 +147,8 @@
 			width: 19px;
 			height: 19px;
 		}
+	}
+	.progress-bar {
+		display: none;
 	}
 }

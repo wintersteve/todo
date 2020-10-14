@@ -1,3 +1,21 @@
+// Primary Button Color
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+	background-color: #8943a7;
+}
+
+// Progress Bar Background
+.mat-progress-bar-buffer {
+	background-color: #424242;
+}
+
+// Progress Bar Fill
+.mat-progress-bar-fill::after {
+	background-color: #b9f6ca;
+}
+
 // Checkbox
 .mat-checkbox-inner-container {
 	margin-right: 12px !important;

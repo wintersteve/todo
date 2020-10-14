@@ -1,12 +1,11 @@
 <div class="row">
-	<button mat-icon-button class="mobile-menu" (click)="expanded.emit()">
-		<mat-icon>menu</mat-icon>
-	</button>
 	<h1 class="title">
 		<mat-icon class="header-icon">{{ selectedList.icon }}</mat-icon>
 		{{ selectedList.title }}
 	</h1>
-	<button mat-flat-button (click)="added.emit()">New</button>
+	<button mat-icon-button class="mobile-menu" (click)="expanded.emit()">
+		<mat-icon>menu</mat-icon>
+	</button>
 </div>
 
 <mat-action-list
@@ -121,3 +120,13 @@
 		Click on the add button to add a new to do item
 	</div></ng-template
 >
+
+<button
+	mat-fab
+	color="primary"
+	class="add-btn"
+	aria-label="Example icon button with a delete icon"
+	(click)="added.emit()"
+>
+	<mat-icon>add</mat-icon>
+</button>

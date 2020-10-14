@@ -28,9 +28,10 @@
 				id="newList"
 				name="newList"
 				[(ngModel)]="newListTitle"
-				autocomplete="off"
 				(blur)="createList()"
 				(keydown.enter)="createList()"
+				autocomplete="off"
+				minlength="4"
 				required
 			/>
 		</mat-form-field>

@@ -38,8 +38,16 @@ export class ListsComponent implements OnInit {
 	}
 
 	createList(): void {
-		this.listsService.create(this.newListTitle);
-		this.resetNewList();
+		if (this.notEmpty) {
+			this.listsService.create(this.newListTitle);
+			this.resetNewList();
+		}
+		return;
+	}
+
+	get notEmpty() {
+		if (this.newListTitle !== '') return true;
+		return false;
 	}
 
 	setFocus() {

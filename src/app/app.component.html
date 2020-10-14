@@ -12,11 +12,14 @@
 		></app-lists>
 	</mat-drawer>
 	<mat-drawer-content class="main">
+		<app-header
+			[todos]="todos"
+			[selectedList]="selectedList"
+			(expanded)="toggleLists()"
+		></app-header>
 		<app-todos
 			[todos]="todos"
 			[selectedTodo]="selectedTodo"
-			[selectedList]="selectedList"
-			(expanded)="toggleLists()"
 			(selected)="select($event)"
 			(clicked)="clickTodo($event)"
 			(added)="addTodo()"

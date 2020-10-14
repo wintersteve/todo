@@ -11,6 +11,8 @@ import { ListsService } from './shared/service/lists.service';
 import { ListsComponent } from './lists/lists.component';
 import { DetailsComponent } from './details/details.component';
 import { TodosService } from './shared/service/todos.service';
+import { HeaderComponent } from './header/header.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
 	declarations: [
@@ -18,6 +20,8 @@ import { TodosService } from './shared/service/todos.service';
 		TodosComponent,
 		ListsComponent,
 		DetailsComponent,
+		HeaderComponent,
+		ProgressBarComponent,
 	],
 	imports: [
 		BrowserModule,

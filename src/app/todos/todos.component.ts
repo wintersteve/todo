@@ -7,7 +7,6 @@ import {
 	Output,
 } from '@angular/core';
 import { differenceInCalendarDays, format } from 'date-fns';
-import { list } from '../shared/interfaces/list';
 import { todo } from '../shared/interfaces/todo';
 
 interface Notes {
@@ -28,8 +27,6 @@ interface DaysUntilCompletion {
 export class TodosComponent implements OnInit, OnChanges {
 	@Input() todos: todo[];
 	@Input() selectedTodo: todo;
-	@Input() selectedList: list;
-	@Output() expanded = new EventEmitter();
 	@Output() clicked = new EventEmitter();
 	@Output() selected = new EventEmitter();
 	@Output() added = new EventEmitter();
@@ -81,15 +78,6 @@ export class TodosComponent implements OnInit, OnChanges {
 		return content;
 	}
 
-	get percentDone() {
-		const amountDone = this.todos.reduce(
-			(result, todo) => (result += todo.done ? 1 : 0),
-			0
-		);
-		if (this.todos.length > 0) return (amountDone / this.todos.length) * 100;
-		else return 0;
-	}
-
 	ngOnInit() {
 		this.loadTodos();
 	}
@@ -97,7 +85,6 @@ export class TodosComponent implements OnInit, OnChanges {
 	ngOnChanges() {
 		this.loadTodos();
 		this.hideNotes();
-		console.log(this.percentDone);
 	}
 
 	constructor() {}

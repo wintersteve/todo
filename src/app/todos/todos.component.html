@@ -55,7 +55,7 @@
 							icon: true,
 							active: todo.id === notes.id && notes.active
 						}"
-						(click)="showNotes(todo.id)"
+						(click)="toggleNotes(todo.id)"
 						[disabled]="!todo.notes ? true : false"
 					>
 						<mat-icon

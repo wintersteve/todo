@@ -51,12 +51,17 @@ export class TodosComponent implements OnInit, OnChanges {
 		this.todosByList = this.groupBy(this.todos, 'list');
 	}
 
-	showNotes(id: string): void {
-		if (this.notes.active && this.notes.id === id) {
-			this.notes = { id, active: false };
-		} else {
-			this.notes = { id, active: true };
-		}
+	toggleNotes(id: string): void {
+		if (this.notes.active && this.notes.id === id) this.hideNotes();
+		else this.showNotes(id);
+	}
+
+	showNotes(id: string) {
+		this.notes = { id, active: true };
+	}
+
+	hideNotes() {
+		this.notes = { id: '', active: false };
 	}
 
 	getDaysLeft(todo: todo): void {
@@ -82,6 +87,7 @@ export class TodosComponent implements OnInit, OnChanges {
 
 	ngOnChanges() {
 		this.loadTodos();
+		this.hideNotes();
 	}
 
 	constructor() {}

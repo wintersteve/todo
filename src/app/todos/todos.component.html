@@ -37,7 +37,7 @@
 						><span class="todo-title">{{ todo.title }}</span>
 					</mat-checkbox>
 
-					<button mat-button *ngIf="todo.urgent" class="icon">
+					<button *ngIf="todo.urgent" class="icon">
 						<mat-icon
 							matListIcon
 							aria-hidden="false"
@@ -70,13 +70,14 @@
 					</button>
 
 					<button
+						mat-button
 						#tooltip="matTooltip"
 						[matTooltip]="daysUntilCompletion.content"
 						matTooltipPosition="left"
 						matTooltipHideDelay="50"
 						aria-label="Button that displays a tooltip that hides when scrolled out of the container"
 						class="icon"
-						(click)="$event.stopPropagation()"
+						(click)="tooltip.show(); $event.stopPropagation()"
 						(mouseenter)="getDaysLeft(todo)"
 						[disabled]="!todo.doneUntil ? true : false"
 					>

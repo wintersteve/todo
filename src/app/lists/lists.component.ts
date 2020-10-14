@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	Output,
+	EventEmitter,
+	ViewChild,
+	ElementRef,
+	ChangeDetectorRef,
+} from '@angular/core';
 import { list } from '../shared/interfaces/list';
 import { ListsService } from '../shared/service/lists.service';
 
@@ -11,6 +20,7 @@ export class ListsComponent implements OnInit {
 	@Input() selectedList: list;
 	@Output() selected = new EventEmitter();
 	@Output() toggled = new EventEmitter();
+	@ViewChild('newList') newList: ElementRef;
 
 	newListTitle: string = '';
 	lists: list[] = [];
@@ -18,6 +28,8 @@ export class ListsComponent implements OnInit {
 
 	addList(): void {
 		this.clickedAddBtn = true;
+		this.cdRef.detectChanges();
+		this.setFocus();
 	}
 
 	resetNewList(): void {
@@ -30,9 +42,16 @@ export class ListsComponent implements OnInit {
 		this.resetNewList();
 	}
 
-	constructor(private listsService: ListsService) {}
+	setFocus() {
+		this.newList.nativeElement.focus();
+	}
 
 	ngOnInit(): void {
 		this.lists = this.listsService.all();
 	}
+
+	constructor(
+		private listsService: ListsService,
+		private cdRef: ChangeDetectorRef
+	) {}
 }

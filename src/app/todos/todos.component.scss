@@ -8,64 +8,10 @@
 	transition: all 0.15s linear;
 }
 
-.item-wrapper {
-	position: relative;
-	transition: all 0.3s ease;
-}
-
-.item {
-	user-select: none;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.checkbox[ng-reflect-checked='true'] {
-	text-decoration: line-through;
-}
-
 .list {
 	padding: 2.5rem 1.9rem 0;
 	font-weight: bold;
 	margin: 0;
-}
-
-.icon {
-	padding: 0;
-	min-width: 36px;
-	margin-right: 0.5rem;
-	display: flex;
-	justify-content: center;
-
-	& .clock,
-	.urgent,
-	.notes {
-		font-size: 20px;
-		width: 20px;
-		height: 20px;
-
-		&.hide {
-			color: #686868;
-		}
-	}
-
-	&.active {
-		background: #424242;
-	}
-}
-
-.notes-wrapper {
-	padding: 0 2rem;
-	background: rgba(255, 255, 255, 0.04);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-	overflow: hidden;
-	animation: expand 0.15s ease forwards;
-}
-
-.done {
-	color: var(--light);
-}
-
-.selected {
-	background-color: var(--bg-light);
 }
 
 .no-todos {
@@ -82,30 +28,8 @@
 	.todo-title {
 		font-size: 0.95rem;
 	}
-	.notes-wrapper {
-		padding: 1.5rem;
-	}
+
 	.list {
 		padding: 2rem 1.25rem 0;
-	}
-	.icon {
-		margin-right: 0;
-
-		&:last-of-type {
-			margin-right: 0.5rem;
-		}
-
-		& .clock,
-		.notes,
-		.urgent {
-			font-size: 16px;
-			width: 16px;
-			height: 16px;
-		}
-		& .edit {
-			font-size: 19px;
-			width: 19px;
-			height: 19px;
-		}
 	}
 }

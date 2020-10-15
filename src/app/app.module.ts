@@ -13,6 +13,7 @@ import { DetailsComponent } from './details/details.component';
 import { TodosService } from './shared/service/todos.service';
 import { HeaderComponent } from './header/header.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { TodoComponent } from './todos/todo/todo.component';
 
 @NgModule({
 	declarations: [
@@ -22,6 +23,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 		DetailsComponent,
 		HeaderComponent,
 		ProgressBarComponent,
+		TodoComponent,
 	],
 	imports: [
 		BrowserModule,

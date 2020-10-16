@@ -21,9 +21,9 @@ export class TodoComponent {
 	@Output() clicked = new EventEmitter();
 	@Output() selectedNote = new EventEmitter();
 
-	protected daysUntilCompletion: DaysUntilCompletion = { id: '', content: '' };
+	public daysUntilCompletion: DaysUntilCompletion = { id: '', content: '' };
 
-	protected toggleNote(id: string): void {
+	public toggleNote(id: string): void {
 		if (this.activeNote === id) this.hideNote();
 		else this.showNote(id);
 	}
@@ -36,7 +36,7 @@ export class TodoComponent {
 		this.activeNoteChange.emit('');
 	}
 
-	protected getDaysLeft(todo): void {
+	public getDaysLeft(todo): void {
 		if (todo.id === this.daysUntilCompletion.id) return;
 		const daysLeft = differenceInCalendarDays(todo.doneUntil, new Date());
 		const formatted = format(todo.doneUntil, 'dd.MM.yyyy');

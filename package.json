@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~9.1.12",
     "@angular/platform-browser-dynamic": "~9.1.12",
     "@angular/router": "~9.1.12",
+    "@angular/service-worker": "~9.1.12",
     "@types/uuid": "^8.3.0",
     "date-fns": "^2.16.1",
     "rxjs": "~6.5.4",

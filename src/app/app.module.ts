@@ -14,6 +14,8 @@ import { TodosService } from './shared/service/todos.service';
 import { HeaderComponent } from './header/header.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { TodoComponent } from './todos/todo/todo.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
 	declarations: [
@@ -31,6 +33,7 @@ import { TodoComponent } from './todos/todo/todo.component';
 		BrowserAnimationsModule,
 		MaterialModule,
 		FormsModule,
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 	],
 	providers: [ListsService, TodosService],
 	bootstrap: [AppComponent],

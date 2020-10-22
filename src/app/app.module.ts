@@ -16,6 +16,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { TodoComponent } from './todos/todo/todo.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
 
 @NgModule({
 	declarations: [
@@ -26,6 +27,7 @@ import { environment } from '../environments/environment';
 		HeaderComponent,
 		ProgressBarComponent,
 		TodoComponent,
+		BottomMenuComponent,
 	],
 	imports: [
 		BrowserModule,

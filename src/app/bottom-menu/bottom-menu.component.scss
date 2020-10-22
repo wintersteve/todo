@@ -1,0 +1,38 @@
+@import '../../scss/variables';
+
+.wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: none;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+	background: #303030;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.add-btn {
+	position: relative;
+	bottom: 0.5rem;
+	border: 3px solid #303030;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.col {
+	flex: 0 0 30%;
+	text-align: center;
+}
+
+.text {
+	font-size: 0.8rem;
+	line-height: 1;
+}
+
+@media screen and (max-width: map-get($breakpoints, 's' )) {
+	.wrapper {
+		display: flex;
+	}
+}

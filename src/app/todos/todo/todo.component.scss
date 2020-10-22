@@ -60,12 +60,12 @@
 		width: auto;
 		height: auto !important;
 		user-select: none;
-		margin: 1rem 1rem;
-		padding: 1rem 0rem;
+		margin: 0.75rem 1rem;
 		border-radius: 1rem;
 		border: 3px solid rgba(255, 255, 255, 0.06);
-		box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
 		box-sizing: border-box;
+		overflow: hidden;
 	}
 	.notes-wrapper {
 		padding: 1.5rem;

@@ -65,6 +65,6 @@ textarea.mat-input-element {
 @media screen and (max-width: map-get($breakpoints, 's' )) {
 	.mat-list-base .mat-list-item .mat-list-item-content,
 	.mat-list-base .mat-list-option .mat-list-item-content {
-		padding: 0 4px !important;
+		padding: 1rem 4px !important;
 	}
 }

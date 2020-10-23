@@ -14,6 +14,7 @@
 	box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 	animation: slide-in 0.15s ease;
+	z-index: 99;
 }
 
 .form-field {

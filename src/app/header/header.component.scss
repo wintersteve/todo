@@ -31,13 +31,14 @@
 
 @media screen and (max-width: map-get($breakpoints, 's' )) {
 	.wrapper {
-		margin: 1rem 1.1rem;
+		margin: 0;
+		padding: 1.5rem;
+		position: relative;
 	}
 
 	.title {
-		font-size: 1.5rem;
-		margin-top: 1rem;
-		margin-left: 0.25rem;
+		font-size: 1.45rem;
+		margin: 0;
 	}
 
 	// .mobile-menu {
@@ -45,6 +46,10 @@
 	// }
 
 	.progress-bar {
-		display: none;
+		position: absolute;
+		bottom: 0;
+		z-index: 99;
+		left: 0;
+		width: 100%;
 	}
 }

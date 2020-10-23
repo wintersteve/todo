@@ -12,7 +12,7 @@
 			[checked]="todo.done"
 			[(ngModel)]="todo.done"
 			(ngModelChange)="clicked.emit(todo.id)"
-			><span class="todo-title">{{ todo.title }}</span>
+			><span class="title">{{ todo.title }}</span>
 		</mat-checkbox>
 
 		<button *ngIf="todo.urgent" class="icon">
@@ -20,14 +20,14 @@
 				matListIcon
 				aria-hidden="false"
 				aria-label="Urgent todo"
-				color="primary"
+				color="#f7f7f7"
 				class="urgent"
 			>
 				flag</mat-icon
 			>
 		</button>
 
-		<button
+		<!-- <button
 			mat-button
 			[ngClass]="{
 				icon: true,
@@ -40,12 +40,12 @@
 				matListIcon
 				aria-hidden="false"
 				aria-label="Urgent todo"
-				color="primary"
+				color="#f7f7f7"
 				[ngClass]="{ notes: true, hide: !todo.notes }"
 			>
 				comment</mat-icon
 			>
-		</button>
+		</button> -->
 
 		<button
 			mat-button
@@ -63,7 +63,7 @@
 				matListIcon
 				aria-hidden="false"
 				aria-label="Urgent todo"
-				color="primary"
+				color="#f7f7f7"
 				[ngClass]="{ clock: true, hide: !todo.doneUntil }"
 			>
 				schedule</mat-icon
@@ -82,7 +82,7 @@
 				aria-hidden="false"
 				aria-label="list options"
 			>
-				notes</mat-icon
+				edit</mat-icon
 			>
 		</button>
 	</mat-list-item>

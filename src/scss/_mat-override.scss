@@ -13,7 +13,7 @@
 
 // Progress Bar Fill
 .mat-progress-bar-fill::after {
-	background-color: #b9f6ca;
+	background-color: #f7f7f7;
 }
 
 // Checkbox
@@ -21,6 +21,15 @@
 	margin-right: 12px !important;
 	height: 14px !important;
 	width: 14px !important;
+}
+
+.mat-checkbox-frame {
+	border-radius: 50rem !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+	background-color: #00bcd4;
+	border-radius: 50rem;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-underline {
@@ -65,6 +74,6 @@ textarea.mat-input-element {
 @media screen and (max-width: map-get($breakpoints, 's' )) {
 	.mat-list-base .mat-list-item .mat-list-item-content,
 	.mat-list-base .mat-list-option .mat-list-item-content {
-		padding: 1rem 4px !important;
+		padding: 0.75rem 0 !important;
 	}
 }

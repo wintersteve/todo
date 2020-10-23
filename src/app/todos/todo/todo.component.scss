@@ -10,10 +10,6 @@
 	user-select: none;
 }
 
-.title {
-	font-size: 0.85rem;
-}
-
 .checkbox[ng-reflect-checked='true'] {
 	text-decoration: line-through;
 }
@@ -70,6 +66,9 @@
 		border-radius: 0.25rem;
 		box-sizing: border-box;
 		overflow: hidden;
+	}
+	.title {
+		font-size: 0.85rem;
 	}
 	.notes-wrapper {
 		padding: 1.5rem;

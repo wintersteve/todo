@@ -3,18 +3,6 @@
 @import './scss/animations';
 @import './scss/mat-override';
 
-html,
-body {
-	height: 100%;
-}
-
-body {
-	margin: 0;
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
-	overflow: hidden;
-	background: var(--bg-dark);
-}
-
 :root {
 	@each $var, $color in $colors {
 		--#{$var}: #{$color};

@@ -3,6 +3,16 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
+interface NetlifyIdentity {
+	logout: () => void;
+}
+
+declare global {
+	interface Window {
+		netlifyIdentity: NetlifyIdentity;
+	}
+}
+
 interface Token {
 	access_token: string;
 	token_type: 'bearer';
@@ -28,8 +38,10 @@ interface User {
 }
 
 const STORAGE_KEY = 'gotrue.user';
+const WINDOW_KEY = 'window';
 
 export const STORAGE_TOKEN = new InjectionToken<Storage>('storage');
+export const WINDOW_TOKEN = new InjectionToken<Window>('window');
 
 @Injectable({
 	providedIn: 'root',
@@ -39,6 +51,7 @@ export class AuthService {
 
 	constructor(
 		@Inject(STORAGE_TOKEN) private readonly localStorage: Storage,
+		@Inject(WINDOW_TOKEN) private readonly window: Window,
 		private readonly http: HttpClient
 	) {
 		const user = JSON.parse(this.localStorage.getItem(STORAGE_KEY));
@@ -61,5 +74,10 @@ export class AuthService {
 				}
 			)
 			.pipe(map((user) => !!user.id));
+	}
+
+	public logout(): void {
+		this.window.netlifyIdentity.logout();
+		this._user$.next(undefined);
 	}
 }

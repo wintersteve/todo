@@ -7,9 +7,9 @@ import {
 	OnChanges,
 	OnDestroy,
 } from '@angular/core';
-import { list } from '../shared/interfaces/list';
-import { todo } from '../shared/interfaces/todo';
-import { ListsService } from '../shared/service/lists.service';
+import { list } from '../../shared/interfaces/list';
+import { todo } from '../../shared/interfaces/todo';
+import { ListsService } from '../../shared/service/lists.service';
 
 @Component({
 	selector: 'app-details',
@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit, OnChanges, OnDestroy {
 	@Output() cancelled = new EventEmitter();
 	@Output() saved = new EventEmitter();
 
-	selectedTodo: todo|null = null;
+	selectedTodo: todo | null = null;
 	lists: list[] = [];
 
 	get customLists() {

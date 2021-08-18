@@ -8,8 +8,8 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 } from '@angular/core';
-import { list } from '../shared/interfaces/list';
-import { ListsService } from '../shared/service/lists.service';
+import { list } from '../../shared/interfaces/list';
+import { ListsService } from '../../shared/service/lists.service';
 
 @Component({
 	selector: 'app-lists',

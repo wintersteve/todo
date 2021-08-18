@@ -6,7 +6,7 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
-import { todo } from '../shared/interfaces/todo';
+import { todo } from '../../shared/interfaces/todo';
 
 @Component({
 	selector: 'app-todos',

@@ -22,9 +22,9 @@ interface User {
 	recovery_sent_at: string;
 	role: string;
 	token: Token;
-	updated_at: '2021-08-17T20:57:55Z';
-	url: 'https://angular-jamstack-todo.netlify.app/.netlify/identity';
-	user_metadata: { full_name: 'Steve' };
+	updated_at: string;
+	url: string;
+	user_metadata: { full_name: string };
 }
 
 const STORAGE_KEY = 'gotrue.user';
@@ -35,7 +35,7 @@ export const STORAGE_TOKEN = new InjectionToken<Storage>('storage');
 	providedIn: 'root',
 })
 export class AuthService {
-	private readonly _user$ = new BehaviorSubject(undefined);
+	private readonly _user$ = new BehaviorSubject<User>(undefined);
 
 	constructor(
 		@Inject(STORAGE_TOKEN) private readonly localStorage: Storage,
@@ -46,7 +46,7 @@ export class AuthService {
 		this._user$.next(user);
 	}
 
-	public getUser(): Observable<unknown> {
+	public getUser(): Observable<User> {
 		return this._user$.asObservable();
 	}
 

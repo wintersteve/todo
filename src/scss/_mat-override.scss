@@ -41,6 +41,11 @@ textarea.mat-input-element {
 	background-color: rgb(185 246 202 / 0.7);
 }
 
+// List item
+.mat-list-item-content {
+	padding: 0 1.5rem !important;
+}
+
 // Cursor Animation, Icon, Label, Select Arrow Icon, Active List Item, Datepicker Icon
 .mat-input-element,
 .mat-icon.mat-primary,

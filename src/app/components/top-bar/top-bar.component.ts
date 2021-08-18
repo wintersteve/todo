@@ -10,4 +10,8 @@ export class TopBarComponent {
 	public readonly user$ = this.authService.getUser();
 
 	constructor(private readonly authService: AuthService) {}
+
+	public onClick(): void {
+		this.authService.logout();
+	}
 }

@@ -5,6 +5,6 @@
 	</span>
 	<div>
 		<span>{{ (user$ | async)?.user_metadata?.full_name }}</span>
-		<button class="logoutBtn">Logout</button>
+		<button class="logoutBtn" (click)="onClick()">Logout</button>
 	</div>
 </div>

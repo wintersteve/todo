@@ -4,7 +4,7 @@
 		<h1>JAMStack Todo App</h1>
 	</span>
 	<div>
-		<span>User</span>
-		<button>Logout</button>
+		<span>{{ (user$ | async)?.user_metadata?.full_name }}</span>
+		<button class="logoutBtn">Logout</button>
 	</div>
 </div>

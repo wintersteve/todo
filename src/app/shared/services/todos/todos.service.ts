@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { todo } from '../interfaces/todo';
+import { todo } from '../../interfaces/todo';
 import { addDays, isToday } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 

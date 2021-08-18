@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { list } from '../../shared/interfaces/list';
 import { todo } from '../../shared/interfaces/todo';
-import { ListsService } from '../../shared/service/lists.service';
+import { ListsService } from '../../shared/services/lists/lists.service';
 
 @Component({
 	selector: 'app-details',

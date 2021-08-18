@@ -5,11 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material/material.module';
-import { ListsService } from './shared/service/lists.service';
-import { TodosService } from './shared/service/todos.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { STORAGE_TOKEN } from './shared/service/auth.service';
+import { STORAGE_TOKEN } from './shared/services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 
@@ -26,11 +24,7 @@ import { ComponentsModule } from './components/components.module';
 			enabled: environment.production,
 		}),
 	],
-	providers: [
-		ListsService,
-		TodosService,
-		{ provide: STORAGE_TOKEN, useValue: window.localStorage },
-	],
+	providers: [{ provide: STORAGE_TOKEN, useValue: window.localStorage }],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

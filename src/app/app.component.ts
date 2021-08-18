@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { list } from './shared/interfaces/list';
 import { todo } from './shared/interfaces/todo';
-import { ListsService } from './shared/service/lists.service';
-import { TodosService } from './shared/service/todos.service';
+import { ListsService } from './shared/services/lists/lists.service';
+import { TodosService } from './shared/services/todos/todos.service';
 
 @Component({
 	selector: 'app-root',

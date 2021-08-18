@@ -9,7 +9,7 @@ import {
 	ChangeDetectorRef,
 } from '@angular/core';
 import { list } from '../../shared/interfaces/list';
-import { ListsService } from '../../shared/service/lists.service';
+import { ListsService } from '../../shared/services/lists/lists.service';
 
 @Component({
 	selector: 'app-lists',

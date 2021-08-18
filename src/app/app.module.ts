@@ -17,6 +17,8 @@ import { TodoComponent } from './todos/todo/todo.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
+import { STORAGE_TOKEN } from './shared/service/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
@@ -33,11 +35,18 @@ import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		MaterialModule,
 		FormsModule,
-		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+		ServiceWorkerModule.register('ngsw-worker.js', {
+			enabled: environment.production,
+		}),
 	],
-	providers: [ListsService, TodosService],
+	providers: [
+		ListsService,
+		TodosService,
+		{ provide: STORAGE_TOKEN, useValue: window.localStorage },
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

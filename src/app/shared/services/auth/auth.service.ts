@@ -38,7 +38,6 @@ interface User {
 }
 
 const STORAGE_KEY = 'gotrue.user';
-const WINDOW_KEY = 'window';
 
 export const STORAGE_TOKEN = new InjectionToken<Storage>('storage');
 export const WINDOW_TOKEN = new InjectionToken<Window>('window');

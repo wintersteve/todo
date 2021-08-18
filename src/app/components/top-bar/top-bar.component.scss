@@ -1,0 +1,22 @@
+@import 'variables';
+
+.wrapper {
+	align-items: center;
+	color: #fff;
+	display: flex;
+	font-weight: 700;
+	justify-content: space-between;
+	padding: 2rem 2.5rem;
+}
+
+.branding {
+	align-items: center;
+	display: flex;
+
+	& > h1 {
+		font-weight: 700;
+		font-size: 0.9rem;
+		margin: 0;
+		padding-left: 0.75rem;
+	}
+}

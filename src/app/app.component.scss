@@ -1,7 +1,13 @@
 @import '../scss/variables';
 
-.app {
+:host {
+	display: flex;
+	flex-direction: column;
 	height: 100vh;
+}
+
+.app {
+	height: 100%;
 }
 
 .side {

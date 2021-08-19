@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 interface NetlifyIdentity {
 	logout: () => void;
+	open: () => void;
 }
 
 declare global {
@@ -63,16 +64,18 @@ export class AuthService {
 	}
 
 	public isLoggedIn(): Observable<boolean> {
-		return this.http
-			.get<User>(
-				'https://angular-jamstack-todo.netlify.app/.netlify/identity/user',
-				{
-					headers: {
-						Authorization: `bearer ${this._user$.value.token.access_token}`,
-					},
-				}
-			)
-			.pipe(map((user) => !!user.id));
+		const token = this._user$?.value?.token?.access_token;
+
+		return token
+			? this.http
+					.get<User>(
+						'https://angular-jamstack-todo.netlify.app/.netlify/identity/user',
+						{
+							headers: { Authorization: `bearer ${token}` },
+						}
+					)
+					.pipe(map((user) => !!user.id))
+			: of(false);
 	}
 
 	public logout(): void {

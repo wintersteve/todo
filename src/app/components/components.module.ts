@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { TodoComponent } from './todos/todo/todo.component';
 import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
-import { MaterialModule } from '../shared/material/material.module';
+import { MaterialModule } from '../libs/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { TopBarComponent } from './top-bar/top-bar.component';
 

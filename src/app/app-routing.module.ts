@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './libs/netlify-identity/guards/auth.guard';
+import { NotAuthGuard } from './libs/netlify-identity/guards/not-auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
-import { AuthGuard } from './shared/guards/auth.guard';
-import { NotAuthGuard } from './shared/guards/not-auth.guard';
 
 const routes: Routes = [
 	{

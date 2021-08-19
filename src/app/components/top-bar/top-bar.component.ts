@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { map } from 'rxjs/operators';
+import { NetlifyIdentityService } from 'src/app/libs/netlify-identity/services/netlify-identity.service';
 
 @Component({
 	selector: 'app-top-bar',
@@ -8,14 +9,18 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 	styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent {
-	public readonly user$ = this.authService.getUser();
+	public user$ = this.netlifyIdentity
+		.getUser()
+		.pipe(map((user) => user.user_metadata));
 
 	constructor(
-		private readonly authService: AuthService,
+		private readonly netlifyIdentity: NetlifyIdentityService,
 		private readonly router: Router
 	) {}
 
 	public onClick(): void {
-		this.authService.logout().then(() => this.router.navigate(['login']));
+		this.netlifyIdentity
+			.logout()
+			.subscribe(() => this.router.navigate(['login']));
 	}
 }

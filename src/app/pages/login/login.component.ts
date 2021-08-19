@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { WINDOW_TOKEN } from 'src/app/shared/services/auth/auth.service';
+import { NetlifyIdentityService } from 'src/app/libs/netlify-identity/services/netlify-identity.service';
 
 @Component({
 	selector: 'app-login',
@@ -7,9 +7,11 @@ import { WINDOW_TOKEN } from 'src/app/shared/services/auth/auth.service';
 	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-	constructor(@Inject(WINDOW_TOKEN) private readonly window: Window) {}
+	constructor(
+		private readonly netlifyIdentityService: NetlifyIdentityService
+	) {}
 
 	public onClick(): void {
-		this.window.netlifyIdentity.open();
+		this.netlifyIdentityService.openModal();
 	}
 }

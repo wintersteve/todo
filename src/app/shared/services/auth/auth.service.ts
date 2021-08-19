@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 interface NetlifyIdentity {
-	logout: () => void;
+	logout: () => Promise<null>;
 	open: () => void;
 }
 
@@ -78,8 +78,9 @@ export class AuthService {
 			: of(false);
 	}
 
-	public logout(): void {
-		this.window.netlifyIdentity.logout();
+	public logout(): Promise<null> {
 		this._user$.next(undefined);
+
+		return this.window.netlifyIdentity.logout();
 	}
 }

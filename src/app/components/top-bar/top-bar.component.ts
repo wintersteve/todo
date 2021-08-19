@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
@@ -9,9 +10,12 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 export class TopBarComponent {
 	public readonly user$ = this.authService.getUser();
 
-	constructor(private readonly authService: AuthService) {}
+	constructor(
+		private readonly authService: AuthService,
+		private readonly router: Router
+	) {}
 
 	public onClick(): void {
-		this.authService.logout();
+		this.authService.logout().then(() => this.router.navigate(['login']));
 	}
 }

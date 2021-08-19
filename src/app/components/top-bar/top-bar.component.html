@@ -3,8 +3,8 @@
 		><img src="/assets/icons/icon-72x72.png" width="30" height="30" />
 		<h1>JAMStack Todo App</h1>
 	</span>
-	<div>
-		<span>{{ (user$ | async)?.full_name }}</span>
+	<div *ngIf="user$ | async as user">
+		<span>{{ user?.full_name }}</span>
 		<button class="logoutBtn" (click)="onClick()">Logout</button>
 	</div>
 </div>

@@ -1,0 +1,33 @@
+@import 'variables';
+
+.page {
+	align-items: center;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: center;
+}
+
+.logo {
+	margin-bottom: 1rem;
+	margin-top: -5rem;
+}
+
+.btnGroup {
+	margin-top: 1rem;
+
+	& button:nth-of-type(2) {
+		background: map-get($colors, 'secondary');
+		border-radius: 0.25rem;
+		padding: 0.75rem 1rem;
+		margin-left: 1.5rem;
+	}
+}
+
+::ng-deep {
+	.netlify-identity-button {
+		text-decoration: none;
+		color: inherit;
+	}
+}

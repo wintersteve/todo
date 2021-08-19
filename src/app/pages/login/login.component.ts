@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { WINDOW_TOKEN } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+	constructor(@Inject(WINDOW_TOKEN) private readonly window: Window) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+	public onClick(): void {
+		this.window.netlifyIdentity.open();
+	}
 }

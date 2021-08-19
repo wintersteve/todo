@@ -1,6 +1,8 @@
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { Inject, Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { filter, map, skipUntil, switchMap } from 'rxjs/operators';
 import { NetlifyEvent, NetlifyIdentity, User } from '../models';
 import { ENDPOINT } from '../netlify-identity.config';
@@ -19,11 +21,13 @@ export class NetlifyIdentityService {
 	constructor(
 		@Inject(NETLIFY_IDENTITY_TOKEN)
 		private readonly netlifyIdentityAdapter: NetlifyIdentity,
-		private readonly http: HttpClient
+		private readonly http: HttpClient,
+		private readonly location: Location,
+		private readonly router: Router,
+		private readonly zone: NgZone
 	) {
-		netlifyIdentityAdapter.on(NetlifyEvent.INIT, () =>
-			this._isInitialized$.next(true)
-		);
+		this.handleInitialization();
+		this.handleLogin();
 	}
 
 	public getUser(): Observable<User> {
@@ -32,8 +36,8 @@ export class NetlifyIdentityService {
 		);
 	}
 
-	public logout(): Observable<null> {
-		return from(this.netlifyIdentityAdapter.logout());
+	public logout(cb: CallableFunction): void {
+		this.netlifyIdentityAdapter.logout().then(() => this.zone.run(() => cb()));
 	}
 
 	public openModal(): void {
@@ -54,5 +58,22 @@ export class NetlifyIdentityService {
 					: of(false)
 			)
 		);
+	}
+
+	private handleInitialization(): void {
+		this.netlifyIdentityAdapter.on(NetlifyEvent.INIT, () =>
+			this._isInitialized$.next(true)
+		);
+	}
+
+	private handleLogin(): void {
+		if (this.location.path() === '/login') {
+			this.netlifyIdentityAdapter.on(NetlifyEvent.LOGIN, () =>
+				this.zone.run(() => {
+					this.netlifyIdentityAdapter.close();
+					this.router.navigate(['/']);
+				})
+			);
+		}
 	}
 }

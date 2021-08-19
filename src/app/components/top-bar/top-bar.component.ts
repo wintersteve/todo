@@ -19,8 +19,6 @@ export class TopBarComponent {
 	) {}
 
 	public onClick(): void {
-		this.netlifyIdentity
-			.logout()
-			.subscribe(() => this.router.navigate(['login']));
+		this.netlifyIdentity.logout(() => this.router.navigate(['login']));
 	}
 }

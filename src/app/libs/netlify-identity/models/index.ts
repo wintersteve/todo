@@ -6,13 +6,16 @@ declare global {
 
 enum NetlifyEvent {
 	INIT = 'init',
+	LOGIN = 'login',
 }
 
+type EventCallback = (user?: User) => void;
 interface NetlifyIdentity {
+	close: () => void;
 	currentUser: () => User;
 	logout: () => Promise<null>;
 	open: () => void;
-	on: (event: NetlifyEvent, cb: (user: User) => void) => void;
+	on: (event: NetlifyEvent, cb: EventCallback) => void;
 }
 
 interface Token {
@@ -39,4 +42,4 @@ interface User {
 	user_metadata: { full_name: string };
 }
 
-export { NetlifyIdentity, Token, User, NetlifyEvent };
+export { NetlifyIdentity, Token, User, NetlifyEvent, EventCallback };

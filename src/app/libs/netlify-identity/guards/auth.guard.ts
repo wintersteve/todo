@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import {
+	ActivatedRouteSnapshot,
+	CanActivate,
+	Router,
+	RouterStateSnapshot,
+	UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NetlifyIdentityService } from '../services/netlify-identity.service';
@@ -13,7 +19,12 @@ export class AuthGuard implements CanActivate {
 		private readonly router: Router
 	) {}
 
-	canActivate(): Observable<boolean | UrlTree> {
+	canActivate(
+		_: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot
+	): Observable<boolean | UrlTree> | boolean {
+		if (state.url === '/#demo') return true;
+
 		return this.netlifyIdentity
 			.isLoggedIn()
 			.pipe(

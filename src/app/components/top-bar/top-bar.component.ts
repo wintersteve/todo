@@ -11,7 +11,7 @@ import { NetlifyIdentityService } from 'src/app/libs/netlify-identity/services/n
 export class TopBarComponent {
 	public user$ = this.netlifyIdentity
 		.getUser()
-		.pipe(map((user) => user.user_metadata));
+		.pipe(map((user) => user?.user_metadata));
 
 	constructor(
 		private readonly netlifyIdentity: NetlifyIdentityService,

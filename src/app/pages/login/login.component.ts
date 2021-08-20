@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { NetlifyIdentityService } from 'src/app/libs/netlify-identity/services/netlify-identity.service';
 
 @Component({
@@ -8,10 +9,15 @@ import { NetlifyIdentityService } from 'src/app/libs/netlify-identity/services/n
 })
 export class LoginComponent {
 	constructor(
-		private readonly netlifyIdentityService: NetlifyIdentityService
+		private readonly netlifyIdentityService: NetlifyIdentityService,
+		private readonly router: Router
 	) {}
 
 	public onClick(): void {
 		this.netlifyIdentityService.openModal();
+	}
+
+	public onDemo(): void {
+		this.router.navigateByUrl('/#demo');
 	}
 }

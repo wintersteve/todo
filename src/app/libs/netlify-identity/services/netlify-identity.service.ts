@@ -62,7 +62,7 @@ export class NetlifyIdentityService {
 
 	private handleInitialization(): void {
 		this.netlifyIdentityAdapter.on(NetlifyEvent.INIT, () =>
-			this._isInitialized$.next(true)
+			this.zone.run(() => this._isInitialized$.next(true))
 		);
 	}
 

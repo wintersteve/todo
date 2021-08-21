@@ -12,10 +12,10 @@ interface DaysUntilCompletion {
 	styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent {
-	@Input() todo;
-	@Input() selectedTodo;
-	@Input() list;
-	@Input() activeNote;
+	@Input() todo: any;
+	@Input() selectedTodo: any;
+	@Input() list: any;
+	@Input() activeNote: any;
 	@Output() activeNoteChange = new EventEmitter();
 	@Output() selected = new EventEmitter();
 	@Output() clicked = new EventEmitter();
@@ -36,7 +36,7 @@ export class TodoComponent {
 		this.activeNoteChange.emit('');
 	}
 
-	public getDaysLeft(todo): void {
+	public getDaysLeft(todo: any): void {
 		if (todo.id === this.daysUntilCompletion.id) return;
 		const daysLeft = differenceInCalendarDays(todo.doneUntil, new Date());
 		const formatted = format(todo.doneUntil, 'dd.MM.yyyy');

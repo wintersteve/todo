@@ -20,16 +20,16 @@ export class TodosComponent implements OnInit, OnChanges {
 	@Output() selected = new EventEmitter();
 	@Output() added = new EventEmitter();
 
-	todosByList = [];
+	todosByList: any[] = [];
 	activeNote: string = '';
 
 	private hideNote() {
 		this.activeNote = '';
 	}
 
-	groupBy = (items, key) =>
+	groupBy = (items: any, key: any) =>
 		items.reduce(
-			(result, item) => ({
+			(result: any, item: any) => ({
 				...result,
 				[item[key]]: [...(result[item[key]] || []), item],
 			}),

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, skipUntil, switchMap } from 'rxjs/operators';
+import { filter, map, skipUntil, switchMap, tap } from 'rxjs/operators';
 import { NetlifyEvent, NetlifyIdentity, User } from '../models';
 import { ENDPOINT } from '../netlify-identity.config';
 import { NETLIFY_IDENTITY_TOKEN } from '../netlify-identity.token';
@@ -61,9 +61,11 @@ export class NetlifyIdentityService {
 	}
 
 	private handleInitialization(): void {
-		this.netlifyIdentityAdapter.on(NetlifyEvent.INIT, () =>
-			this.zone.run(() => this._isInitialized$.next(true))
-		);
+		if (this.netlifyIdentityAdapter) return this._isInitialized$.next(true);
+
+		this.netlifyIdentityAdapter.on(NetlifyEvent.INIT, () => {
+			this.zone.run(() => this._isInitialized$.next(true));
+		});
 	}
 
 	private handleLogin(): void {

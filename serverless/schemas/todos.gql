@@ -1,0 +1,12 @@
+type Todo {
+	deadline: String
+	isUrgent: Boolean
+	isDone: Boolean
+	notes: String
+	title: String!
+	user: String
+}
+
+type Query {
+	getTodos: [Todo!]
+}

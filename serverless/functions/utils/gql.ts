@@ -1,11 +1,11 @@
 import { config } from 'dotenv';
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 
 config();
 
 const ENDPOINT = 'https://graphql.eu.fauna.com/graphql';
 
-const send = async (query: string, variables?: string) => {
+const send = async (query: string, variables?: string): Promise<Response> => {
 	return await fetch(ENDPOINT, {
 		body: JSON.stringify({ query, variables }),
 		headers: {

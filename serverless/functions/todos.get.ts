@@ -1,24 +1,22 @@
 import { Handler } from '@netlify/functions';
+import { fragements } from './utils/fragments';
 import { client } from './utils/gql';
 
+const operation = 'findTodosByUser';
+
 const query = `
-  query GetTodos {
-    getTodos {
+  ${fragements.TodoFields.value}
+  query FindTodosByUser($input: String!) {
+    findTodosByUser(userId: $input) {
       data {
-        _id
-        deadline
-        isUrgent
-        isDone
-        notes
-        title
-        user
+        ...${fragements.TodoFields.key}
       }
     }
   }
 `;
 
-const handler: Handler = async () => {
-	const response = await client.send(query);
+const handler: Handler = async (event, context) => {
+	const response = await client.send(query, JSON.parse(event.body));
 	const body = await response.json();
 
 	const { data, errors } = body;
@@ -32,7 +30,7 @@ const handler: Handler = async () => {
 
 	return {
 		statusCode: 200,
-		body: JSON.stringify(data),
+		body: JSON.stringify(data[operation]),
 	};
 };
 

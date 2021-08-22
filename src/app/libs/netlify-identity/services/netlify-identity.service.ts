@@ -2,8 +2,15 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, skipUntil, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import {
+	catchError,
+	filter,
+	map,
+	skipUntil,
+	switchMap,
+	tap,
+} from 'rxjs/operators';
 import { NetlifyEvent, NetlifyIdentity, User } from '../models';
 import { ENDPOINT } from '../netlify-identity.config';
 import { NETLIFY_IDENTITY_TOKEN } from '../netlify-identity.token';
@@ -56,7 +63,12 @@ export class NetlifyIdentityService {
 							})
 							.pipe(map((user) => !!user.id))
 					: of(false)
-			)
+			),
+			catchError((error) => {
+				this.logout(() => this.router.navigate(['/login']));
+
+				return throwError(error);
+			})
 		);
 	}
 

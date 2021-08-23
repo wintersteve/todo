@@ -20,6 +20,7 @@ import { NETLIFY_IDENTITY_TOKEN } from '../netlify-identity.token';
 })
 export class NetlifyIdentityService {
 	private readonly _isInitialized$ = new BehaviorSubject<boolean>(false);
+	private readonly _user$ = new BehaviorSubject<User>(undefined);
 
 	private isInitialized$ = this._isInitialized$
 		.asObservable()
@@ -37,9 +38,14 @@ export class NetlifyIdentityService {
 		this.handleLogin();
 	}
 
+	public get user$(): Observable<User> {
+		return this._user$.asObservable();
+	}
+
 	public getUser(): Observable<User> {
 		return this.isInitialized$.pipe(
-			map(() => this.netlifyIdentityAdapter.currentUser())
+			map(() => this.netlifyIdentityAdapter.currentUser()),
+			tap((user) => this._user$.next(user))
 		);
 	}
 

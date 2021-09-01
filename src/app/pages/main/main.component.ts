@@ -9,7 +9,7 @@ import {
 	switchMap,
 	take,
 } from 'rxjs/operators';
-import { Dict, groupBy } from 'src/app/libs/utils/group-by';
+import { Dict, groupBy } from 'src/app/shared/utils/group-by';
 import {
 	FaunaService,
 	List,

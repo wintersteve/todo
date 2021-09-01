@@ -87,7 +87,7 @@ export class NetlifyIdentityService {
 	}
 
 	private handleLogin(): void {
-		if (this.location.path() === '/login') {
+		if (this.location.path() !== '/') {
 			this.netlifyIdentityAdapter.on(NetlifyEvent.LOGIN, () =>
 				this.zone.run(() => {
 					this.netlifyIdentityAdapter.close();

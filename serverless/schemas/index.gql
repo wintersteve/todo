@@ -1,0 +1,24 @@
+type Todo {
+	deadline: String
+	isUrgent: Boolean
+	isDone: Boolean!
+	notes: String
+	title: String!
+	userId: String
+	listId: ID
+}
+
+type List {
+	icon: String
+	isCustom: Boolean
+	title: String!
+	userId: String
+}
+
+type Query {
+	getTodos: [Todo!]
+	findTodosByUser(userId: String!): [Todo!]
+	getLists: [List!]
+	findListsByUser(userId: String!): [List!]
+	findDefaultLists(isCustom: Boolean!): [List!]
+}

@@ -40,7 +40,7 @@ const handler: Handler = async (event, context) => {
 
 	return {
 		statusCode: 200,
-		body: JSON.stringify(data[operation]),
+		body: JSON.stringify(data[operation].data),
 	};
 };
 

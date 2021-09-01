@@ -4,12 +4,22 @@ const TodoFields = `
     deadline
     isUrgent
     isDone
+    listId
     notes
     title
-    userId
+  }
+`;
+
+const ListFields = `
+  fragment ListFields on List {
+    id: _id
+    icon
+    isCustom
+    title
   }
 `;
 
 export const fragements = {
 	TodoFields: { key: 'TodoFields', value: TodoFields },
+	ListFields: { key: 'ListFields', value: ListFields },
 };

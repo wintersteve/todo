@@ -1,29 +1,25 @@
-<mat-action-list
-	class="todos"
-	[style]="selectedTodo.id ? { width: '60%' } : { width: '100%' }"
-	*ngIf="todos.length !== 0; else noTodos"
->
-	<div *ngFor="let list of todosByList | keyvalue">
-		<h3 class="list" *ngIf="list.value.length">
-			{{ list.key }}
+<mat-action-list class="todos" *ngIf="hasTodos; else noTodos">
+	<div *ngFor="let group of todos | keyvalue">
+		<h3 class="list" *ngIf="group.value.todos.length">
+			{{ group.value.list.title }}
 		</h3>
 		<app-todo
-			[list]="list"
+			[isActive]="selectedTodo?.id === todo.id"
+			[list]="group.value.list"
 			[todo]="todo"
-			[selectedTodo]="selectedTodo"
 			[(activeNote)]="activeNote"
 			(selected)="selected.emit($event)"
 			(clicked)="clicked.emit($event)"
-			*ngFor="let todo of todos"
+			*ngFor="let todo of group.value.todos"
 		></app-todo>
 	</div>
 </mat-action-list>
 
-<ng-template #noTodos
-	><div class="no-todos">
+<ng-template #noTodos>
+	<div class="no-todos" *ngIf="!!todos">
 		Click on the add button to add a new to do item
-	</div></ng-template
->
+	</div>
+</ng-template>
 
 <button
 	mat-fab

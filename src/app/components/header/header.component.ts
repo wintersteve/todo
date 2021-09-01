@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { list } from '../../shared/interfaces/list';
-import { todo } from '../../shared/interfaces/todo';
+import { List, Todo } from 'src/app/shared/services/fauna.service';
 
 @Component({
 	selector: 'app-header',
@@ -8,9 +7,7 @@ import { todo } from '../../shared/interfaces/todo';
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-	@Input() selectedList: list;
-	@Input() todos: todo[];
+	@Input() selectedList: List;
+	@Input() todos: Todo[];
 	@Output() expanded = new EventEmitter();
-
-	constructor() {}
 }

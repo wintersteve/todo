@@ -1,6 +1,5 @@
 import {
 	Component,
-	OnInit,
 	Input,
 	Output,
 	EventEmitter,
@@ -8,7 +7,7 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 } from '@angular/core';
-import { list } from '../../shared/interfaces/list';
+import { FaunaService, List } from 'src/app/shared/services/fauna.service';
 import { ListsService } from '../../shared/services/lists/lists.service';
 
 @Component({
@@ -16,15 +15,23 @@ import { ListsService } from '../../shared/services/lists/lists.service';
 	templateUrl: './lists.component.html',
 	styleUrls: ['./lists.component.scss'],
 })
-export class ListsComponent implements OnInit {
-	@Input() selectedList: list;
+export class ListsComponent {
+	@Input() lists: List[];
+	@Input() selectedList: List;
 	@Output() selected = new EventEmitter();
 	@Output() toggled = new EventEmitter();
 	@ViewChild('newList') newList: ElementRef;
 
-	newListTitle: string = '';
-	lists: list[] = [];
-	clickedAddBtn: boolean = false;
+	public readonly lists$ = this.faunaService.getLists();
+
+	public newListTitle = '';
+	public clickedAddBtn = false;
+
+	constructor(
+		private listsService: ListsService,
+		private cdRef: ChangeDetectorRef,
+		private readonly faunaService: FaunaService
+	) {}
 
 	addList(): void {
 		this.clickedAddBtn = true;
@@ -53,13 +60,4 @@ export class ListsComponent implements OnInit {
 	setFocus() {
 		this.newList.nativeElement.focus();
 	}
-
-	ngOnInit(): void {
-		this.lists = this.listsService.all();
-	}
-
-	constructor(
-		private listsService: ListsService,
-		private cdRef: ChangeDetectorRef
-	) {}
 }

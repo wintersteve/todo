@@ -3,51 +3,34 @@ import {
 	EventEmitter,
 	Input,
 	OnChanges,
-	OnInit,
 	Output,
 } from '@angular/core';
-import { todo } from '../../shared/interfaces/todo';
+import { TodosGroupedByList } from 'src/app/pages/main/main.component';
+import { Todo } from 'src/app/shared/services/fauna.service';
 
 @Component({
 	selector: 'app-todos',
 	templateUrl: './todos.component.html',
 	styleUrls: ['./todos.component.scss'],
 })
-export class TodosComponent implements OnInit, OnChanges {
-	@Input() todos: todo[];
-	@Input() selectedTodo: todo;
+export class TodosComponent implements OnChanges {
+	@Input() selectedTodo: Todo;
+	@Input() todos: TodosGroupedByList;
 	@Output() clicked = new EventEmitter();
 	@Output() selected = new EventEmitter();
 	@Output() added = new EventEmitter();
 
-	todosByList: any[] = [];
-	activeNote: string = '';
+	public activeNote = '';
 
-	private hideNote() {
-		this.activeNote = '';
-	}
-
-	groupBy = (items: any, key: any) =>
-		items.reduce(
-			(result: any, item: any) => ({
-				...result,
-				[item[key]]: [...(result[item[key]] || []), item],
-			}),
-			{}
-		);
-
-	loadTodos() {
-		this.todosByList = this.groupBy(this.todos, 'list');
-	}
-
-	ngOnInit() {
-		this.loadTodos();
-	}
-
-	ngOnChanges() {
-		this.loadTodos();
+	public ngOnChanges(): void {
 		this.hideNote();
 	}
 
-	constructor() {}
+	public get hasTodos(): boolean {
+		return this.todos && !!Object.keys(this.todos)?.length;
+	}
+
+	private hideNote(): void {
+		this.activeNote = '';
+	}
 }

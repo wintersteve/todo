@@ -1,7 +1,7 @@
 <mat-action-list class="lists">
 	<mat-list-item
-		*ngFor="let list of lists"
-		[class]="list === selectedList ? 'active' : 'inactive'"
+		*ngFor="let list of lists$ | async"
+		[class]="list?.id === selectedList?.id ? 'active' : 'inactive'"
 		(click)="selected.emit(list); toggled.emit()"
 	>
 		<mat-icon class="icon">{{ list.icon }}</mat-icon>
@@ -12,7 +12,7 @@
 			type="button"
 			class="edit-wrapper"
 			(click)="$event.stopPropagation()"
-			*ngIf="list.custom"
+			*ngIf="list.isCustom"
 		>
 			<mat-icon class="edit" aria-hidden="false" aria-label="list options"
 				>edit</mat-icon

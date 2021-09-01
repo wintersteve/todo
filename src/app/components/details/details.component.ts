@@ -4,57 +4,43 @@ import {
 	Input,
 	Output,
 	EventEmitter,
-	OnChanges,
 	OnDestroy,
 } from '@angular/core';
-import { list } from '../../shared/interfaces/list';
-import { todo } from '../../shared/interfaces/todo';
-import { ListsService } from '../../shared/services/lists/lists.service';
-
+import { List, Todo } from 'src/app/shared/services/fauna.service';
 @Component({
 	selector: 'app-details',
 	templateUrl: './details.component.html',
 	styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() todo: todo;
+export class DetailsComponent implements OnInit, OnDestroy {
+	@Input() lists: List[];
+	@Input() set todo(value: Todo) {
+		this._todo = { ...value };
+	}
+	public get todo() {
+		return this._todo;
+	}
+
 	@Output() cancelled = new EventEmitter();
 	@Output() saved = new EventEmitter();
 
-	selectedTodo: todo | null = null;
-	lists: list[] = [];
-
-	get customLists() {
-		return this.lists.filter((list) => list.custom);
-	}
-
-	get today() {
-		return new Date();
-	}
-
-	copyTodo() {
-		this.selectedTodo = { ...this.todo };
-	}
-
-	toggleOverlay() {
-		const bodyClass = document.body.classList;
-		if (bodyClass.contains('overlay')) bodyClass.remove('overlay');
-		else bodyClass.add('overlay');
-	}
-
-	constructor(private listsService: ListsService) {}
+	private _todo: Todo;
 
 	ngOnInit(): void {
-		this.lists = this.listsService.all();
-		this.copyTodo();
 		this.toggleOverlay();
-	}
-
-	ngOnChanges() {
-		this.copyTodo();
 	}
 
 	ngOnDestroy() {
 		this.toggleOverlay();
+	}
+
+	public updateDate(date: Date): void {
+		this.todo = { ...this.todo, deadline: date.toISOString() };
+	}
+
+	private toggleOverlay(): void {
+		const bodyClass = document.body.classList;
+		if (bodyClass.contains('overlay')) bodyClass.remove('overlay');
+		else bodyClass.add('overlay');
 	}
 }

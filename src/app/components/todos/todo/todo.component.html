@@ -1,21 +1,21 @@
-<label class="wrapper" *ngIf="list.key === todo.list">
+<label class="wrapper" *ngIf="list.id === todo.listId">
 	<mat-list-item
 		[ngClass]="{
 			item: true,
-			done: todo.done,
-			selected: todo === selectedTodo || todo.id === activeNote
+			done: todo.isDone,
+			selected: isActive || todo.id === activeNote
 		}"
 	>
 		<mat-checkbox
 			matLine
 			class="checkbox"
-			[checked]="todo.done"
-			[(ngModel)]="todo.done"
+			[checked]="todo.isDone"
+			[(ngModel)]="todo.isDone"
 			(ngModelChange)="clicked.emit(todo.id)"
 			><span class="title">{{ todo.title }}</span>
 		</mat-checkbox>
 
-		<button *ngIf="todo.urgent" class="icon">
+		<button *ngIf="todo.isUrgent" class="icon">
 			<mat-icon
 				matListIcon
 				aria-hidden="false"
@@ -26,7 +26,6 @@
 				flag</mat-icon
 			>
 		</button>
-
 		<button
 			mat-button
 			[ngClass]="{
@@ -50,32 +49,26 @@
 		<button
 			mat-button
 			#tooltip="matTooltip"
-			[matTooltip]="daysUntilCompletion.content"
+			[matTooltip]="daysUntilDeadline$ | async"
 			matTooltipPosition="left"
 			matTooltipHideDelay="50"
 			aria-label="Button that displays a tooltip that hides when scrolled out of the container"
 			class="icon"
 			(click)="tooltip.show(); $event.stopPropagation()"
-			(mouseenter)="getDaysLeft(todo)"
-			[disabled]="!todo.doneUntil ? true : false"
+			[disabled]="!todo.deadline ? true : false"
 		>
 			<mat-icon
 				matListIcon
 				aria-hidden="false"
 				aria-label="Urgent todo"
 				color="#f7f7f7"
-				[ngClass]="{ clock: true, hide: !todo.doneUntil }"
+				[ngClass]="{ clock: true, hide: !todo.deadline }"
 			>
 				schedule</mat-icon
 			>
 		</button>
 
-		<button
-			mat-button
-			class="icon"
-			type="button"
-			(click)="selected.emit(todo.id)"
-		>
+		<button mat-button class="icon" type="button" (click)="selected.emit(todo)">
 			<mat-icon
 				matListIcon
 				class="edit"

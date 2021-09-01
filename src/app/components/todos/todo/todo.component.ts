@@ -1,31 +1,44 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { differenceInCalendarDays, format } from 'date-fns';
-
-interface DaysUntilCompletion {
-	id: string;
-	content: string;
-}
-
+import { differenceInCalendarDays, format, parseISO } from 'date-fns';
+import startOfTomorrow from 'date-fns/startOfTomorrow';
+import { of } from 'rxjs';
+import { map, pluck } from 'rxjs/operators';
+import { List, Todo } from 'src/app/shared/services/fauna.service';
 @Component({
 	selector: 'app-todo',
 	templateUrl: './todo.component.html',
 	styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent {
-	@Input() todo: any;
-	@Input() selectedTodo: any;
-	@Input() list: any;
+	@Input() isActive: boolean;
+	@Input() todo: Todo;
+	@Input() list: List;
 	@Input() activeNote: any;
 	@Output() activeNoteChange = new EventEmitter();
 	@Output() selected = new EventEmitter();
 	@Output() clicked = new EventEmitter();
 	@Output() selectedNote = new EventEmitter();
 
-	public daysUntilCompletion: DaysUntilCompletion = { id: '', content: '' };
-
 	public toggleNote(id: string): void {
 		if (this.activeNote === id) this.hideNote();
 		else this.showNote(id);
+	}
+
+	public get daysUntilDeadline$() {
+		return of(this.todo).pipe(
+			pluck('deadline'),
+			map((deadline) => parseISO(deadline)),
+			map(
+				(deadline) =>
+					[differenceInCalendarDays(deadline, startOfTomorrow()), deadline] as [
+						number,
+						Date
+					]
+			),
+			map(([delta, deadline]) =>
+				this.getTooltipContent(format(deadline, 'dd.MM.yyyy'), delta)
+			)
+		);
 	}
 
 	private showNote(id: string) {
@@ -36,14 +49,6 @@ export class TodoComponent {
 		this.activeNoteChange.emit('');
 	}
 
-	public getDaysLeft(todo: any): void {
-		if (todo.id === this.daysUntilCompletion.id) return;
-		const daysLeft = differenceInCalendarDays(todo.doneUntil, new Date());
-		const formatted = format(todo.doneUntil, 'dd.MM.yyyy');
-		const content = this.getTooltipContent(formatted, daysLeft);
-		this.daysUntilCompletion = { id: todo.id, content };
-	}
-
 	private getTooltipContent(formatted: string, daysLeft: number): string {
 		let content = '';
 		content += `To do until ${formatted} `;
@@ -52,6 +57,4 @@ export class TodoComponent {
 		else if (daysLeft > 1) content += `(${daysLeft} day left).`;
 		return content;
 	}
-
-	constructor() {}
 }

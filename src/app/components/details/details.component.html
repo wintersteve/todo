@@ -1,9 +1,5 @@
 <div class="details">
-	<form
-		#ngForm
-		(submit)="saved.emit(selectedTodo)"
-		(keydown.enter)="saved.emit(selectedTodo)"
-	>
+	<form #ngForm (submit)="saved.emit(todo)" (keydown.enter)="saved.emit(todo)">
 		<mat-form-field class="form-field">
 			<mat-label>Edit Title</mat-label>
 			<input
@@ -11,7 +7,7 @@
 				name="title"
 				type="text"
 				placeholder="What do you have to do?"
-				[(ngModel)]="selectedTodo.title"
+				[(ngModel)]="todo.title"
 				autocomplete="off"
 				required
 			/>
@@ -19,8 +15,8 @@
 
 		<mat-form-field class="form-field">
 			<mat-label>Edit List</mat-label>
-			<mat-select [(ngModel)]="selectedTodo.list" name="lists" required>
-				<mat-option *ngFor="let list of customLists" [value]="list.title">
+			<mat-select [(ngModel)]="todo.listId" name="lists" required>
+				<mat-option *ngFor="let list of lists" [value]="list.title">
 					{{ list.title }}
 				</mat-option>
 			</mat-select>
@@ -32,7 +28,8 @@
 				matInput
 				name="doneUntil"
 				[matDatepicker]="picker"
-				[(ngModel)]="selectedTodo.doneUntil"
+				[ngModel]="todo.deadline"
+				(ngModelChange)="updateDate($event)"
 			/>
 			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 			<mat-datepicker #picker></mat-datepicker>
@@ -44,8 +41,8 @@
 				matInput
 				name="notes"
 				placeholder="Would you like to add more information about the task?"
-				[(ngModel)]="selectedTodo.notes"
-				>{{ selectedTodo.notes }}</textarea
+				[(ngModel)]="todo.notes"
+				>{{ todo.notes }}</textarea
 			>
 		</mat-form-field>
 
@@ -53,7 +50,7 @@
 			class="form-field"
 			matLine
 			name="urgent"
-			[(ngModel)]="selectedTodo.urgent"
+			[(ngModel)]="todo.isUrgent"
 			>Urgent</mat-slide-toggle
 		>
 

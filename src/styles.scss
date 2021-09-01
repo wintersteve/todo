@@ -11,7 +11,7 @@
 
 .overlay::before {
 	content: '';
-	position: absolute;
+	position: fixed;
 	width: 67%;
 	height: 100%;
 	top: 0;

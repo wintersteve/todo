@@ -2,10 +2,10 @@
 @import 'variables';
 
 .details {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	right: 0;
-	width: 40%;
+	width: 33%;
 	height: 100%;
 	border-left: 1px solid rgba(255, 255, 255, 0.12);
 	padding: 1.5rem;

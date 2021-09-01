@@ -41,11 +41,13 @@
 }
 
 .notes-wrapper {
-	padding: 0 2rem;
+	animation: expand 0.15s ease forwards;
 	background: rgba(255, 255, 255, 0.04);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	font-family: $font-primary;
+	font-size: 0.85rem;
 	overflow: hidden;
-	animation: expand 0.15s ease forwards;
+	padding: 0.5rem 4.1rem 1.25rem !important;
 }
 
 .done {

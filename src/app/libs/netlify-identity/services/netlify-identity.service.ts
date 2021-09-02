@@ -2,16 +2,18 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, pipe, throwError } from 'rxjs';
 import {
 	catchError,
 	filter,
 	map,
+	pluck,
 	skipUntil,
 	switchMap,
+	take,
 	tap,
 } from 'rxjs/operators';
-import { NetlifyEvent, NetlifyIdentity, User } from '../models';
+import { NetlifyEvent, NetlifyIdentity, Token, User } from '../models';
 import { ENDPOINT } from '../netlify-identity.config';
 import { NETLIFY_IDENTITY_TOKEN } from '../netlify-identity.token';
 
@@ -22,9 +24,10 @@ export class NetlifyIdentityService {
 	private readonly _isInitialized$ = new BehaviorSubject<boolean>(false);
 	private readonly _user$ = new BehaviorSubject<User>(undefined);
 
-	private isInitialized$ = this._isInitialized$
-		.asObservable()
-		.pipe(filter((isInitialized) => !!isInitialized));
+	private isInitialized$ = this._isInitialized$.asObservable().pipe(
+		filter((isInitialized) => !!isInitialized),
+		take(1)
+	);
 
 	constructor(
 		@Inject(NETLIFY_IDENTITY_TOKEN)
@@ -40,6 +43,10 @@ export class NetlifyIdentityService {
 
 	public get user$(): Observable<User> {
 		return this._user$.asObservable();
+	}
+
+	public getToken(): Observable<Token> {
+		return of(this.netlifyIdentityAdapter.currentUser()).pipe(pluck('token'));
 	}
 
 	public getUser(): Observable<User> {

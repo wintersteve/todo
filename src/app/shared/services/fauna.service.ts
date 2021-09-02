@@ -1,16 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {
-	filter,
-	first,
-	map,
-	share,
-	shareReplay,
-	switchMap,
-	take,
-	tap,
-} from 'rxjs/operators';
+import { filter, shareReplay } from 'rxjs/operators';
 import { NetlifyIdentityService } from 'src/app/libs/netlify-identity/services/netlify-identity.service';
 
 export interface Todo {
@@ -40,27 +31,13 @@ export class FaunaService {
 		.getUser()
 		.pipe(filter((user) => !!user));
 
-	private readonly _lists$ = this.user$.pipe(
-		first(),
-		map((user) => user.token.access_token),
-		switchMap((token) =>
-			this.http.post<List[]>('/api/lists-get', {
-				token,
-			})
-		),
-		shareReplay(1)
-	);
+	private readonly _lists$ = this.http
+		.post<List[]>('/api/lists-get', {})
+		.pipe(shareReplay());
 
-	private readonly _todos$ = this.user$.pipe(
-		first(),
-		map((user) => user.token.access_token),
-		switchMap((token) =>
-			this.http.post<Todo[]>('/api/todos-get', {
-				token,
-			})
-		),
-		shareReplay(1)
-	);
+	private readonly _todos$ = this.http
+		.post<Todo[]>('/api/todos-get', {})
+		.pipe(shareReplay());
 
 	constructor(
 		private readonly http: HttpClient,

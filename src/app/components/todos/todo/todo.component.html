@@ -11,7 +11,7 @@
 			class="checkbox"
 			[checked]="todo.isDone"
 			[(ngModel)]="todo.isDone"
-			(ngModelChange)="clicked.emit(todo.id)"
+			(ngModelChange)="clicked.emit(todo)"
 			><span class="title">{{ todo.title }}</span>
 		</mat-checkbox>
 

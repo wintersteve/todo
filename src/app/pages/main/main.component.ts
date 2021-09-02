@@ -109,7 +109,9 @@ export class MainComponent implements OnInit {
 		this.selectedTodo$.next(undefined);
 	}
 
-	public clickTodo(id: string): void {}
+	public clickTodo(todo: Todo): void {
+		this.faunaService.updateTodo(todo).subscribe();
+	}
 
 	public saveTodo(todo: Todo): void {
 		if (todo.isNew) {

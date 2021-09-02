@@ -47,4 +47,11 @@ export class FaunaService {
 	public getLists(): Observable<List[]> {
 		return this._lists$;
 	}
+
+	public updateTodo(todo: Todo): Observable<Todo> {
+		return this.http.post<Todo>(this.endpoint.get(Route.UPDATE_TODO), {
+			id: todo.id,
+			input: todo,
+		});
+	}
 }

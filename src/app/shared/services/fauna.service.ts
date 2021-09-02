@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
+import { EndpointService, Route } from './endpoint/endpoint.service';
 
 export interface Todo {
 	id: string;
@@ -27,14 +28,17 @@ export interface List {
 })
 export class FaunaService {
 	private readonly _lists$ = this.http
-		.post<List[]>('/api/lists-get', {})
+		.post<List[]>(this.endpoint.get(Route.GET_LISTS), {})
 		.pipe(shareReplay());
 
 	private readonly _todos$ = this.http
-		.post<Todo[]>('/api/todos-get', {})
+		.post<Todo[]>(this.endpoint.get(Route.GET_TODOS), {})
 		.pipe(shareReplay());
 
-	constructor(private readonly http: HttpClient) {}
+	constructor(
+		private readonly endpoint: EndpointService,
+		private readonly http: HttpClient
+	) {}
 
 	public getTodos(): Observable<Todo[]> {
 		return this._todos$;

@@ -1,8 +1,7 @@
 import { Handler } from '@netlify/functions';
 import { fragements } from './utils/fragments';
 import { client } from './utils/gql';
-import { Variables } from './models';
-import { getUserId } from './utils/auth';
+import { getTokenFromRequest, getUserId } from './utils/auth';
 
 const operation = 'findTodosByUser';
 
@@ -17,14 +16,8 @@ const query = `
   }
 `;
 
-const handler: Handler = async (event, context) => {
-	const { token } = JSON.parse(event.body) as Variables;
-
-	if (typeof token !== 'string') {
-		throw new Error(`Expected token to be a string. Received ${token}`);
-	}
-
-	const id = await getUserId(token);
+const handler: Handler = async (event) => {
+	const id = await getUserId(getTokenFromRequest(event));
 
 	const response = await client.send(query, { input: id });
 	const body = await response.json();

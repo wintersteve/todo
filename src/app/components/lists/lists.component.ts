@@ -7,8 +7,7 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 } from '@angular/core';
-import { FaunaService, List } from 'src/app/shared/services/fauna.service';
-import { ListsService } from '../../shared/services/lists/lists.service';
+import { List } from 'src/app/shared/services/fauna.service';
 
 @Component({
 	selector: 'app-lists',
@@ -22,16 +21,10 @@ export class ListsComponent {
 	@Output() toggled = new EventEmitter();
 	@ViewChild('newList') newList: ElementRef;
 
-	public readonly lists$ = this.faunaService.getLists();
-
 	public newListTitle = '';
 	public clickedAddBtn = false;
 
-	constructor(
-		private listsService: ListsService,
-		private cdRef: ChangeDetectorRef,
-		private readonly faunaService: FaunaService
-	) {}
+	constructor(private cdRef: ChangeDetectorRef) {}
 
 	addList(): void {
 		this.clickedAddBtn = true;
@@ -46,8 +39,8 @@ export class ListsComponent {
 
 	createList(): void {
 		if (this.notEmpty) {
-			this.listsService.create(this.newListTitle);
-			this.resetNewList();
+			// this.listsService.create(this.newListTitle);
+			// this.resetNewList();
 		}
 		return;
 	}

@@ -1,6 +1,6 @@
 <mat-action-list class="lists">
 	<mat-list-item
-		*ngFor="let list of lists$ | async"
+		*ngFor="let list of lists"
 		[class]="list?.id === selectedList?.id ? 'active' : 'inactive'"
 		(click)="selected.emit(list); toggled.emit()"
 	>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { list } from '../../interfaces/list';
+import { list } from '../../../interfaces/list';
 
 @Injectable({
 	providedIn: 'root',

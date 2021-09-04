@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { isToday, parseISO } from 'date-fns';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import {
@@ -15,7 +15,7 @@ import {
 	List,
 	Todo,
 } from 'src/app/shared/services/fauna.service';
-import { TodosService } from 'src/app/shared/services/todos/todos.service';
+import { ListsService } from 'src/app/shared/services/lists/lists.service';
 
 export interface TodosGroupedByList {
 	[key: string]: {
@@ -40,12 +40,15 @@ export const EMPTY_TODO: Todo = {
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
 	public isListsMobileExpanded = false;
 
-	public readonly lists$ = this.faunaService.getLists();
+	public readonly lists$ = this.listsService.getLists().pipe(shareReplay());
 
-	public readonly selectedList$ = new BehaviorSubject<List>(undefined);
+	public readonly selectedList$ = this.listsService
+		.getSelected()
+		.pipe(shareReplay());
+
 	public readonly selectedTodo$ = new BehaviorSubject<Todo>(undefined);
 
 	public readonly customLists$ = this.lists$.pipe(
@@ -87,11 +90,10 @@ export class MainComponent implements OnInit {
 		map((selectedTodo) => !!selectedTodo?.id || selectedTodo?.isNew)
 	);
 
-	constructor(private readonly faunaService: FaunaService) {}
-
-	public ngOnInit(): void {
-		this.initializeSelectedList();
-	}
+	constructor(
+		private readonly faunaService: FaunaService,
+		private readonly listsService: ListsService
+	) {}
 
 	public toggleLists(): void {
 		this.isListsMobileExpanded = !this.isListsMobileExpanded;
@@ -102,7 +104,7 @@ export class MainComponent implements OnInit {
 	}
 
 	public selectList(list: List): void {
-		this.selectedList$.next(list);
+		this.listsService.setSelected(list);
 	}
 
 	public resetSelectedTodo(): void {
@@ -118,20 +120,14 @@ export class MainComponent implements OnInit {
 			const { id, isNew, ...rest } = todo;
 			console.log('CREATE', rest);
 		} else {
-			const { id, ...rest } = todo;
-			console.log('UPDATE', rest);
+			console.log('UPDATE', todo);
+			// this.faunaService.updateTodo(todo).subscribe();
 		}
 		this.resetSelectedTodo();
 	}
 
 	public addTodo(): void {
 		this.selectedTodo$.next(EMPTY_TODO);
-	}
-
-	private initializeSelectedList(): void {
-		this.lists$
-			.pipe(take(1))
-			.subscribe((lists) => this.selectedList$.next(lists[0]));
 	}
 
 	private findByList(selectedList: List, todos: Todo[]): Todo[] {

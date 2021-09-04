@@ -12,6 +12,8 @@ export interface Todo {
 	listId?: string;
 }
 
+export type Todos = Todo[];
+
 export interface TodosGroupedByList {
 	[key: string]: {
 		list: List;

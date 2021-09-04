@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FaunaService } from './fauna.service';
+import { TodosService } from './todos.service';
 
-describe('FaunaService', () => {
-  let service: FaunaService;
+describe('TodosService', () => {
+  let service: TodosService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FaunaService);
+    service = TestBed.inject(TodosService);
   });
 
   it('should be created', () => {

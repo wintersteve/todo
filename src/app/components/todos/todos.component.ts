@@ -5,8 +5,7 @@ import {
 	OnChanges,
 	Output,
 } from '@angular/core';
-import { TodosGroupedByList } from 'src/app/pages/main/main.component';
-import { Todo } from 'src/app/shared/services/fauna.service';
+import { Todo, TodosGroupedByList } from 'src/app/shared/models/todos';
 
 @Component({
 	selector: 'app-todos',

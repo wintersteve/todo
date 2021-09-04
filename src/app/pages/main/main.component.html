@@ -31,7 +31,7 @@
 			[lists]="customLists$ | async"
 			[todo]="selectedTodo$ | async"
 			(saved)="saveTodo($event)"
-			(cancelled)="resetSelectedTodo()"
+			(cancelled)="selectTodo(undefined)"
 			*ngIf="showDetails$ | async"
 		></app-details>
 		<app-bottom-menu></app-bottom-menu>

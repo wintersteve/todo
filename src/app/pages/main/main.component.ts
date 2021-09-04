@@ -1,40 +1,14 @@
 import { Component } from '@angular/core';
-import { isToday, parseISO } from 'date-fns';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import {
-	filter,
-	first,
-	map,
-	shareReplay,
-	switchMap,
-	take,
-} from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { first, map, shareReplay } from 'rxjs/operators';
 import { Dict, groupBy } from 'src/app/shared/utils/group-by';
-import {
-	FaunaService,
-	List,
-	Todo,
-} from 'src/app/shared/services/fauna.service';
 import { ListsService } from 'src/app/shared/services/lists/lists.service';
-
-export interface TodosGroupedByList {
-	[key: string]: {
-		list: List;
-		todos: Todo[];
-	};
-}
-
-export const EMPTY_TODO: Todo = {
-	id: '',
-	title: '',
-	notes: '',
-	listId: '',
-	deadline: undefined,
-	isUrgent: false,
-	isDone: false,
-	isNew: true,
-};
-
+import { Todo, TodosGroupedByList } from 'src/app/shared/models/todos';
+import {
+	EMPTY_TODO,
+	TodosService,
+} from 'src/app/shared/services/todos/todos.service';
+import { List, Lists } from 'src/app/shared/models/lists';
 @Component({
 	selector: 'app-main',
 	templateUrl: './main.component.html',
@@ -49,27 +23,21 @@ export class MainComponent {
 		.getSelected()
 		.pipe(shareReplay());
 
-	public readonly selectedTodo$ = new BehaviorSubject<Todo>(undefined);
+	public readonly selectedTodo$ = this.todosService
+		.getSelected()
+		.pipe(shareReplay());
 
 	public readonly customLists$ = this.lists$.pipe(
 		map((lists) => lists.filter((list) => list.isCustom))
 	);
 
-	public readonly filteredTodos$ = this.selectedList$.pipe(
-		filter((selectedList) => !!selectedList),
-		switchMap((selectedList) =>
-			this.faunaService
-				.getTodos()
-				.pipe(map((todos) => this.findByList(selectedList, todos)))
-		),
-		shareReplay()
-	);
+	public readonly filteredTodos$ = this.todosService.filteredTodos$;
 
 	public readonly todosGroupedByLists$: Observable<TodosGroupedByList> =
 		combineLatest([this.filteredTodos$, this.lists$]).pipe(
 			map(
 				([todos, lists]) =>
-					[groupBy<Todo>(todos, 'listId'), lists] as [Dict<Todo>, List[]]
+					[groupBy<Todo>(todos, 'listId'), lists] as [Dict<Todo>, Lists]
 			),
 
 			map(([todos, lists]) =>
@@ -91,8 +59,8 @@ export class MainComponent {
 	);
 
 	constructor(
-		private readonly faunaService: FaunaService,
-		private readonly listsService: ListsService
+		private readonly listsService: ListsService,
+		private readonly todosService: TodosService
 	) {}
 
 	public toggleLists(): void {
@@ -100,19 +68,15 @@ export class MainComponent {
 	}
 
 	public selectTodo(todo: Todo): void {
-		this.selectedTodo$.next(todo);
+		this.todosService.setSelected(todo);
 	}
 
 	public selectList(list: List): void {
 		this.listsService.setSelected(list);
 	}
 
-	public resetSelectedTodo(): void {
-		this.selectedTodo$.next(undefined);
-	}
-
 	public clickTodo(todo: Todo): void {
-		this.faunaService.updateTodo(todo).subscribe();
+		this.todosService.updateTodo(todo).subscribe();
 	}
 
 	public saveTodo(todo: Todo): void {
@@ -123,25 +87,11 @@ export class MainComponent {
 			console.log('UPDATE', todo);
 			// this.faunaService.updateTodo(todo).subscribe();
 		}
-		this.resetSelectedTodo();
+
+		this.selectTodo(undefined);
 	}
 
 	public addTodo(): void {
-		this.selectedTodo$.next(EMPTY_TODO);
-	}
-
-	private findByList(selectedList: List, todos: Todo[]): Todo[] {
-		switch (selectedList.title) {
-			case 'Inbox':
-				return todos;
-			case 'Today':
-				return todos.filter((todo) => isToday(parseISO(todo.deadline)));
-			case 'Urgent':
-				return todos.filter((todo) => todo.isUrgent);
-			case 'Done':
-				return todos.filter((todo) => todo.isDone);
-			default:
-				return todos.filter((todo) => todo.listId === selectedList.id);
-		}
+		this.todosService.setSelected(EMPTY_TODO);
 	}
 }

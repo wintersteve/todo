@@ -6,14 +6,15 @@ import {
 	EventEmitter,
 	OnDestroy,
 } from '@angular/core';
-import { List, Todo } from 'src/app/shared/services/fauna.service';
+import { Lists } from 'src/app/shared/models/lists';
+import { Todo } from 'src/app/shared/models/todos';
 @Component({
 	selector: 'app-details',
 	templateUrl: './details.component.html',
 	styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit, OnDestroy {
-	@Input() lists: List[];
+	@Input() lists: Lists;
 	@Input() set todo(value: Todo) {
 		this._todo = { ...value };
 	}

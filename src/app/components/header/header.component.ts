@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { List, Todo } from 'src/app/shared/services/fauna.service';
+import { List } from 'src/app/shared/models/lists';
+import { Todos } from 'src/app/shared/models/todos';
 
 @Component({
 	selector: 'app-header',
@@ -8,6 +9,6 @@ import { List, Todo } from 'src/app/shared/services/fauna.service';
 })
 export class HeaderComponent {
 	@Input() selectedList: List;
-	@Input() todos: Todo[];
+	@Input() todos: Todos;
 	@Output() expanded = new EventEmitter();
 }

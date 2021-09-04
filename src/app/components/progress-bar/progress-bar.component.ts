@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Todo } from 'src/app/shared/services/fauna.service';
-import { todo } from '../../shared/interfaces/todo';
+import { Todos } from 'src/app/shared/models/todos';
 
 @Component({
 	selector: 'app-progress-bar',
@@ -8,7 +7,7 @@ import { todo } from '../../shared/interfaces/todo';
 	styleUrls: ['./progress-bar.component.scss'],
 })
 export class ProgressBarComponent {
-	@Input() todos: Todo[];
+	@Input() todos: Todos;
 
 	get percentDone() {
 		const amountDone = this.todos.reduce(

@@ -3,7 +3,8 @@ import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 import startOfTomorrow from 'date-fns/startOfTomorrow';
 import { of } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
-import { List, Todo } from 'src/app/shared/services/fauna.service';
+import { List } from 'src/app/shared/models/lists';
+import { Todo } from 'src/app/shared/models/todos';
 @Component({
 	selector: 'app-todo',
 	templateUrl: './todo.component.html',

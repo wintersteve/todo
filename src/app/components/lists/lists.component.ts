@@ -7,7 +7,7 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 } from '@angular/core';
-import { List } from 'src/app/shared/services/fauna.service';
+import { List, Lists } from 'src/app/shared/models/lists';
 
 @Component({
 	selector: 'app-lists',
@@ -15,7 +15,7 @@ import { List } from 'src/app/shared/services/fauna.service';
 	styleUrls: ['./lists.component.scss'],
 })
 export class ListsComponent {
-	@Input() lists: List[];
+	@Input() lists: Lists;
 	@Input() selectedList: List;
 	@Output() selected = new EventEmitter();
 	@Output() toggled = new EventEmitter();

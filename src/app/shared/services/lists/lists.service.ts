@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { skip } from 'rxjs/operators';
-import { Lists } from '../../models/lists';
+import { List, Lists } from '../../models/lists';
 import { EndpointService, Route } from '../endpoint/endpoint.service';
-import { List } from '../fauna.service';
 
 export const EMPTY_LIST: List = {
 	id: '',

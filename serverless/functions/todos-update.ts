@@ -1,5 +1,4 @@
 import { Handler } from '@netlify/functions';
-import { Todo } from 'src/app/shared/services/fauna.service';
 import { Variables } from './models';
 import { getTokenFromRequest, getUserId } from './utils/auth';
 import { client } from './utils/gql';

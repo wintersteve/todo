@@ -10,8 +10,7 @@
 			matLine
 			class="checkbox"
 			[checked]="todo.isDone"
-			[(ngModel)]="todo.isDone"
-			(ngModelChange)="clicked.emit(todo)"
+			(change)="updateCheckbox()"
 			><span class="title">{{ todo.title }}</span>
 		</mat-checkbox>
 

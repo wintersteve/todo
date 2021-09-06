@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 import startOfTomorrow from 'date-fns/startOfTomorrow';
 import { of } from 'rxjs';
-import { map, pluck } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { List } from 'src/app/shared/models/lists';
 import { Todo } from 'src/app/shared/models/todos';
 @Component({
@@ -26,20 +26,26 @@ export class TodoComponent {
 	}
 
 	public get daysUntilDeadline$() {
-		return of(this.todo).pipe(
-			pluck('deadline'),
+		const { deadline } = this.todo;
+
+		if (!deadline) {
+			return of('');
+		}
+
+		return of(deadline).pipe(
 			map((deadline) => parseISO(deadline)),
-			map(
-				(deadline) =>
-					[differenceInCalendarDays(deadline, startOfTomorrow()), deadline] as [
-						number,
-						Date
-					]
-			),
+			map((deadline) => [
+				differenceInCalendarDays(deadline, startOfTomorrow()),
+				deadline,
+			]),
 			map(([delta, deadline]) =>
-				this.getTooltipContent(format(deadline, 'dd.MM.yyyy'), delta)
+				this.getTooltipContent(format(deadline, 'dd.MM.yyyy'), delta as number)
 			)
 		);
+	}
+
+	public updateCheckbox() {
+		return this.clicked.emit({ ...this.todo, isDone: !this.todo.isDone });
 	}
 
 	private showNote(id: string) {

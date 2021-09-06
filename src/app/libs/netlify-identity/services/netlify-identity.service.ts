@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of, pipe, throwError } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, pipe, throwError } from 'rxjs';
 import {
 	catchError,
 	filter,
@@ -77,11 +77,7 @@ export class NetlifyIdentityService {
 							.pipe(map((user) => !!user.id))
 					: of(false)
 			),
-			catchError((error) => {
-				this.logout(() => this.router.navigate(['/login']));
-
-				return throwError(error);
-			})
+			catchError((error) => this.handleRefresh(error))
 		);
 	}
 
@@ -102,5 +98,18 @@ export class NetlifyIdentityService {
 				})
 			);
 		}
+	}
+
+	private handleRefresh(error: Error): Observable<boolean> {
+		return from(
+			this.netlifyIdentityAdapter
+				.refresh()
+				.then(() => undefined)
+				.catch(() => {
+					this.logout(() => this.router.navigate(['/login']));
+
+					return error;
+				})
+		);
 	}
 }

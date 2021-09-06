@@ -15,6 +15,7 @@ interface NetlifyIdentity {
 	currentUser: () => User;
 	logout: () => Promise<null>;
 	open: () => void;
+	refresh: () => Promise<string>;
 	on: (event: NetlifyEvent, cb: EventCallback) => void;
 }
 

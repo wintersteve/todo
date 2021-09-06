@@ -23,7 +23,7 @@
 			[selectedTodo]="selectedTodo$ | async"
 			[todos]="todosGroupedByLists$ | async"
 			(added)="addTodo()"
-			(clicked)="clickTodo($event)"
+			(clicked)="updateTodo($event)"
 			(selected)="selectTodo($event)"
 		></app-todos>
 

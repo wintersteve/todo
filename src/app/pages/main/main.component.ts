@@ -75,17 +75,21 @@ export class MainComponent {
 		this.listsService.setSelected(list);
 	}
 
-	public clickTodo(todo: Todo): void {
-		this.todosService.updateTodo(todo).subscribe();
+	public createTodo(todo: Todo): void {
+		this.todosService.createTodo(todo);
+	}
+
+	public updateTodo(todo: Todo): void {
+		this.todosService.updateTodo(todo);
 	}
 
 	public saveTodo(todo: Todo): void {
 		if (todo.isNew) {
-			const { id, isNew, ...rest } = todo;
+			const { isNew, ...rest } = todo;
 			console.log('CREATE', rest);
+			this.createTodo(rest);
 		} else {
-			console.log('UPDATE', todo);
-			// this.faunaService.updateTodo(todo).subscribe();
+			this.updateTodo(todo);
 		}
 
 		this.selectTodo(undefined);

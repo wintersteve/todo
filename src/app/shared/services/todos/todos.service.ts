@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { isToday, parseISO } from 'date-fns';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, skip, switchMap } from 'rxjs/operators';
-import { List } from '../../models/lists';
+import { filter, map, skip, switchMap, tap } from 'rxjs/operators';
+import { DEFAULT_LIST, List } from '../../models/lists';
 import { Todo, Todos } from '../../models/todos';
 import { EndpointService, Route } from '../endpoint/endpoint.service';
 import { ListsService } from '../lists/lists.service';
@@ -13,7 +13,7 @@ export const EMPTY_TODO: Todo = {
 	title: '',
 	notes: '',
 	listId: '',
-	deadline: undefined,
+	deadline: '',
 	isUrgent: false,
 	isDone: false,
 	isNew: true,
@@ -56,11 +56,29 @@ export class TodosService {
 		this._selectedTodo$.next(todo);
 	}
 
-	public updateTodo(todo: Todo): Observable<Todo> {
-		return this.http.post<Todo>(this.endpoint.get(Route.UPDATE_TODO), {
-			id: todo.id,
-			input: todo,
-		});
+	public createTodo(todo: Todo): void {
+		this.http
+			.post<Todo>(this.endpoint.get(Route.CREATE_TODO), {
+				input: todo,
+			})
+			.subscribe();
+	}
+
+	public updateTodo(todo: Todo): void {
+		const updatedState = this._todos$.value.map((todoInState) =>
+			todoInState.id === todo.id ? todo : todoInState
+		);
+
+		console.log(updatedState);
+
+		this._todos$.next(updatedState);
+
+		this.http
+			.post<Todo>(this.endpoint.get(Route.UPDATE_TODO), {
+				id: todo.id,
+				input: todo,
+			})
+			.subscribe();
 	}
 
 	private load(): void {
@@ -72,14 +90,14 @@ export class TodosService {
 	}
 
 	private findByList(selectedList: List, todos: Todo[]): Todo[] {
-		switch (selectedList.title) {
-			case 'Inbox':
+		switch (selectedList.id) {
+			case DEFAULT_LIST.INBOX:
 				return todos;
-			case 'Today':
+			case DEFAULT_LIST.TODAY:
 				return todos.filter((todo) => isToday(parseISO(todo.deadline)));
-			case 'Urgent':
+			case DEFAULT_LIST.URGENT:
 				return todos.filter((todo) => todo.isUrgent);
-			case 'Done':
+			case DEFAULT_LIST.DONE:
 				return todos.filter((todo) => todo.isDone);
 			default:
 				return todos.filter((todo) => todo.listId === selectedList.id);

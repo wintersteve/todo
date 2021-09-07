@@ -26,6 +26,6 @@ const TodoFields = `
 `;
 
 export const fragments = {
-	TodoFields: { key: 'TodoFields', value: TodoFields },
-	ListFields: { key: 'ListFields', value: ListFields },
+	TodoFields: { key: 'TodoFields', definition: TodoFields },
+	ListFields: { key: 'ListFields', definition: ListFields },
 };

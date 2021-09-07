@@ -8,7 +8,7 @@ import { sanitizeInput } from './utils/sanitize-input';
 const operation = 'updateTodo';
 
 const query = `
-	${fragments.TodoFields.value}
+	${fragments.TodoFields.definition}
   mutation UpdateTodo($id: ID!, $input: TodoInput!) {
 		${operation}(id: $id, data: $input) {
 			...${fragments.TodoFields.key}

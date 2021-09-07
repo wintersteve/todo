@@ -6,7 +6,7 @@ import { getTokenFromRequest, getUserId } from './utils/auth';
 const operation = 'findTodosByUser';
 
 const query = `
-  ${fragments.TodoFields.value}
+  ${fragments.TodoFields.definition}
   query FindTodosByUser($input: String!) {
     findTodosByUser(userId: $input) {
       data {

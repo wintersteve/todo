@@ -20,7 +20,7 @@ interface FindListsData {
 }
 
 const query = `
-  ${fragments.ListFields.value}
+  ${fragments.ListFields.definition}
   query FindLists($input: String!) {
     findDefaultLists(isCustom: false) {
       data {

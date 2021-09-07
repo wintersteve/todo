@@ -9,7 +9,7 @@ import { EndpointService, Route } from '../endpoint/endpoint.service';
 import { EMPTY_LIST, ListsService } from '../lists/lists.service';
 
 export const EMPTY_TODO: Todo = {
-	id: '',
+	id: undefined,
 	title: '',
 	notes: '',
 	list: EMPTY_LIST,
@@ -57,11 +57,18 @@ export class TodosService {
 	}
 
 	public createTodo(todo: Todo): void {
+		const previousState = this._todos$.value;
+		const updatedState = [...previousState, { ...todo, id: undefined }];
+
+		this._todos$.next(updatedState);
+
 		this.http
 			.post<Todo>(this.endpoint.get(Route.CREATE_TODO), {
-				input: todo,
+				input: { ...todo, list: { connect: todo.list.id } },
 			})
-			.subscribe();
+			.subscribe((todo) => {
+				this._todos$.next([...previousState, todo]);
+			});
 	}
 
 	public updateTodo(todo: Todo): void {

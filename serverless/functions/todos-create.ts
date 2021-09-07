@@ -1,21 +1,17 @@
 import { Handler } from '@netlify/functions';
 import { Variables } from './models';
 import { getTokenFromRequest, getUserId } from './utils/auth';
+import { fragments } from './utils/fragments';
 import { client } from './utils/gql';
 import { sanitizeInput } from './utils/sanitize-input';
 
 const operation = 'createTodo';
 
 const query = `
+	${fragments.TodoFields.definition}
   mutation CreateTodo($input: TodoInput!) {
 		${operation}(data: $input) {
-			id: _id
-			deadline
-			isUrgent
-			isDone
-			notes
-			title
-			userId
+			...${fragments.TodoFields.key}
 		}
 	}
 `;
@@ -32,8 +28,6 @@ const handler: Handler = async (event) => {
 	const body = await response.json();
 
 	const { data, errors } = body;
-
-	console.log(data);
 
 	if (errors) {
 		return {

@@ -2,12 +2,7 @@ import { Handler } from '@netlify/functions';
 import { Variables } from './models';
 import { getTokenFromRequest, getUserId } from './utils/auth';
 import { client } from './utils/gql';
-
-function sanitizeInput(input: any): Variables {
-	const { id, userId, ...safe } = input;
-
-	return safe;
-}
+import { sanitizeInput } from './utils/sanitize-input';
 
 const operation = 'createTodo';
 

@@ -1,7 +1,7 @@
 import { Variables } from '../models';
 
 export function sanitizeInput(input: any): Variables {
-	const { id, userId, list, ...safe } = input;
+	const { id, userId, ...safe } = input;
 
 	return safe;
 }

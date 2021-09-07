@@ -1,27 +1,17 @@
 import { Handler } from '@netlify/functions';
 import { Variables } from './models';
 import { getTokenFromRequest, getUserId } from './utils/auth';
+import { fragements } from './utils/fragments';
 import { client } from './utils/gql';
 import { sanitizeInput } from './utils/sanitize-input';
 
 const operation = 'updateTodo';
 
 const query = `
+	${fragements.TodoFields.value}
   mutation UpdateTodo($id: ID!, $input: TodoInput!) {
 		${operation}(id: $id, data: $input) {
-			id: _id
-			deadline
-			isUrgent
-			isDone
-			notes
-			title
-			list {
-				id: _id
-				icon
-				isCustom
-				title
-			}
-			userId
+			...${fragements.TodoFields.key}
 		}
 	}
 `;

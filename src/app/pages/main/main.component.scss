@@ -1,4 +1,5 @@
 @import '../scss/variables';
+@import '../scss/mixins';
 
 :host {
 	display: flex;
@@ -13,11 +14,31 @@
 .side {
 	min-width: 17.5rem;
 	width: 17.5%;
+
+	@include media-breakpoint-down(s) {
+		min-width: 0;
+		width: 0%;
+		transform: translateX(-400px) !important;
+		border-right: 0;
+		z-index: 3 !important;
+	}
+
+	&.expanded {
+		@include media-breakpoint-down(s) {
+			width: 100%;
+			transform: translateX(0px) !important;
+			transition: width, transform 0.15s ease;
+		}
+	}
 }
 
 .main {
 	box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.125);
 	z-index: 2;
+
+	@include media-breakpoint-down(s) {
+		width: 100%;
+	}
 }
 
 .sidebar {
@@ -35,22 +56,4 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-}
-
-@media screen and (max-width: map-get($breakpoints, 's' )) {
-	.side {
-		width: 0%;
-		transform: translateX(-400px) !important;
-		border-right: 0;
-		z-index: 3 !important;
-	}
-	.side.expanded {
-		width: 100%;
-		transform: translateX(0px) !important;
-		transition: width, transform 0.15s ease;
-	}
-	.main {
-		width: 100%;
-		background: linear-gradient(to top, #212121, #191919);
-	}
 }

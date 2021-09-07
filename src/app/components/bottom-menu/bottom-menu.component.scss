@@ -1,40 +1,44 @@
 @import 'variables';
+@import 'mixins';
 
 .wrapper {
-	position: fixed;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+	border-top: 3px solid map-get($colors, 'border-primary');
 	bottom: 0;
-	left: 0;
 	display: none;
+	left: 0;
+	height: 3.75rem;
 	justify-content: space-evenly;
+	position: fixed;
 	align-items: center;
 	width: 100%;
-	background: #212121;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+	@include media-breakpoint-down(s) {
+		display: flex;
+	}
 }
 
 .add-btn {
-	position: relative;
-	bottom: 0.5rem;
-	border: 3px solid #303030;
-	display: flex;
 	align-items: center;
+	background: none;
+	box-shadow: none;
+	border: 1px solid map-get($colors, 'border-primary');
+	display: flex;
+	height: 2.75rem;
 	justify-content: center;
-	border-radius: 1rem;
-	background-color: #00bcd4 !important;
+	margin: auto;
+	position: relative;
+	width: 2.75rem;
 }
 
 .col {
+	align-items: center;
+	display: flex;
+	justify-content: center;
 	flex: 0 0 30%;
-	text-align: center;
 }
 
 .text {
 	font-size: 0.8rem;
 	line-height: 1;
-}
-
-@media screen and (max-width: map-get($breakpoints, 's' )) {
-	.wrapper {
-		display: flex;
-	}
 }

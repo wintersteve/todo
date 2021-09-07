@@ -1,5 +1,6 @@
 @import 'animations';
 @import 'variables';
+@import 'mixins';
 
 .wrapper {
 	border-bottom: 1px solid map-get($colors, 'border-primary');
@@ -10,6 +11,18 @@
 
 .item {
 	user-select: none;
+
+	@include media-breakpoint-down(s) {
+		width: auto;
+		height: auto !important;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
+		margin: 0;
+		border-radius: 0.25rem;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
 }
 
 .checkbox[ng-reflect-checked='true'] {
@@ -59,18 +72,6 @@
 }
 
 @media screen and (max-width: map-get($breakpoints, 's' )) {
-	.item {
-		width: auto;
-		height: auto !important;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		user-select: none;
-		margin: 0;
-		background-color: #1f1f1f;
-		border-radius: 0.25rem;
-		box-sizing: border-box;
-		overflow: hidden;
-	}
 	.title {
 		font-size: 0.85rem;
 	}

@@ -4,7 +4,7 @@
 		<h1>JAMStack Todo App</h1>
 	</span>
 	<div *ngIf="user$ | async as user">
-		<span>{{ user?.full_name }}</span>
+		<span class="user">{{ user?.full_name }}</span>
 		<button class="logoutBtn" (click)="onClick()">Logout</button>
 	</div>
 </div>

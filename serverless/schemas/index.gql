@@ -5,7 +5,7 @@ type Todo {
 	notes: String
 	title: String!
 	userId: String
-	listId: ID
+	list: List
 }
 
 type List {

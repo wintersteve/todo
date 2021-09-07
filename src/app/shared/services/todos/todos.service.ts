@@ -12,7 +12,7 @@ export const EMPTY_TODO: Todo = {
 	id: '',
 	title: '',
 	notes: '',
-	listId: '',
+	list: undefined,
 	deadline: '',
 	isUrgent: false,
 	isDone: false,
@@ -69,8 +69,6 @@ export class TodosService {
 			todoInState.id === todo.id ? todo : todoInState
 		);
 
-		console.log(updatedState);
-
 		this._todos$.next(updatedState);
 
 		this.http
@@ -100,7 +98,7 @@ export class TodosService {
 			case DEFAULT_LIST.DONE:
 				return todos.filter((todo) => todo.isDone);
 			default:
-				return todos.filter((todo) => todo.listId === selectedList.id);
+				return todos.filter((todo) => todo.list.id === selectedList.id);
 		}
 	}
 }

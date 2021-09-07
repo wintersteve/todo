@@ -4,7 +4,12 @@ const TodoFields = `
     deadline
     isUrgent
     isDone
-    listId
+    list {
+      id: _id
+      icon
+      isCustom
+      title
+    }
     notes
     title
   }

@@ -1,16 +1,15 @@
 <mat-action-list class="todos" *ngIf="hasTodos; else noTodos">
 	<div *ngFor="let group of todos | keyvalue">
-		<h3 class="list" *ngIf="group.value.todos.length">
-			{{ group.value.list.title }}
+		<h3 class="list" *ngIf="group.value.length">
+			{{ group.key }}
 		</h3>
 		<app-todo
 			[isActive]="selectedTodo?.id === todo.id"
-			[list]="group.value.list"
 			[todo]="todo"
 			[(activeNote)]="activeNote"
 			(selected)="selected.emit($event)"
 			(clicked)="clicked.emit($event)"
-			*ngFor="let todo of group.value.todos"
+			*ngFor="let todo of group.value"
 		></app-todo>
 	</div>
 </mat-action-list>

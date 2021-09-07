@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { first, map, shareReplay } from 'rxjs/operators';
-import { Dict, groupBy } from 'src/app/shared/utils/group-by';
+import { groupBy } from 'src/app/shared/utils/group-by';
 import { ListsService } from 'src/app/shared/services/lists/lists.service';
 import { Todo, TodosGroupedByList } from 'src/app/shared/models/todos';
 import {
 	EMPTY_TODO,
 	TodosService,
 } from 'src/app/shared/services/todos/todos.service';
-import { List, Lists } from 'src/app/shared/models/lists';
+import { List } from 'src/app/shared/models/lists';
 @Component({
 	selector: 'app-main',
 	templateUrl: './main.component.html',
@@ -34,19 +34,8 @@ export class MainComponent {
 	public readonly filteredTodos$ = this.todosService.filteredTodos$;
 
 	public readonly todosGroupedByLists$: Observable<TodosGroupedByList> =
-		combineLatest([this.filteredTodos$, this.lists$]).pipe(
-			map(
-				([todos, lists]) =>
-					[groupBy<Todo>(todos, 'listId'), lists] as [Dict<Todo>, Lists]
-			),
-
-			map(([todos, lists]) =>
-				Object.entries(todos).reduce((acc, [listId, todos]) => {
-					const match = lists.find((list: List) => list.id === listId);
-
-					return { ...acc, [listId]: { list: match, todos } };
-				}, {})
-			)
+		this.filteredTodos$.pipe(
+			map((todos) => groupBy<Todo>(todos, 'list.title'))
 		);
 
 	public readonly hasTodos$ = this.todosGroupedByLists$.pipe(

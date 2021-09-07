@@ -9,14 +9,11 @@ export interface Todo {
 	notes?: string;
 	title: string;
 	userId?: string;
-	listId?: string;
+	list?: List;
 }
 
 export type Todos = Todo[];
 
 export interface TodosGroupedByList {
-	[key: string]: {
-		list: List;
-		todos: Todo[];
-	};
+	[key: string]: Todo[];
 }

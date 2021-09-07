@@ -4,7 +4,7 @@ import { getTokenFromRequest, getUserId } from './utils/auth';
 import { client } from './utils/gql';
 
 function sanitizeInput(input: any): Variables {
-	const { id, userId, ...safe } = input;
+	const { id, userId, list, ...safe } = input;
 
 	return safe;
 }
@@ -20,6 +20,12 @@ const query = `
 			isDone
 			notes
 			title
+			list {
+				id: _id
+				icon
+				isCustom
+				title
+			}
 			userId
 		}
 	}

@@ -30,6 +30,7 @@
 		<mat-form-field class="form-field" (click)="picker.open()">
 			<mat-label>Edit To Do Until</mat-label>
 			<input
+				autocomplete="off"
 				matInput
 				name="doneUntil"
 				[matDatepicker]="picker"

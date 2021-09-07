@@ -74,7 +74,7 @@ export class TodosService {
 		this.http
 			.post<Todo>(this.endpoint.get(Route.UPDATE_TODO), {
 				id: todo.id,
-				input: todo,
+				input: { ...todo, list: { connect: todo.list.id } },
 			})
 			.subscribe();
 	}

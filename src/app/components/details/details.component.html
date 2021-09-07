@@ -15,7 +15,7 @@
 
 		<mat-form-field class="form-field">
 			<mat-label>Edit List</mat-label>
-			<mat-select [(ngModel)]="todo.list.id" name="lists" required>
+			<mat-select [(value)]="todo.list.title" name="lists" required>
 				<mat-option *ngFor="let list of lists" [value]="list.title">
 					{{ list.title }}
 				</mat-option>

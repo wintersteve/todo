@@ -6,13 +6,13 @@ import { filter, map, skip, switchMap, tap } from 'rxjs/operators';
 import { DEFAULT_LIST, List } from '../../models/lists';
 import { Todo, Todos } from '../../models/todos';
 import { EndpointService, Route } from '../endpoint/endpoint.service';
-import { ListsService } from '../lists/lists.service';
+import { EMPTY_LIST, ListsService } from '../lists/lists.service';
 
 export const EMPTY_TODO: Todo = {
 	id: '',
 	title: '',
 	notes: '',
-	list: undefined,
+	list: EMPTY_LIST,
 	deadline: '',
 	isUrgent: false,
 	isDone: false,

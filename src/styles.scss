@@ -2,6 +2,7 @@
 @import './scss/variables';
 @import './scss/animations';
 @import './scss/mat-override';
+@import './scss/mixins';
 
 :root {
 	@each $var, $color in $colors {

@@ -27,16 +27,20 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
 	private _todo: Todo;
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.toggleOverlay();
 	}
 
-	ngOnDestroy() {
+	public ngOnDestroy() {
 		this.toggleOverlay();
 	}
 
 	public updateDate(date: Date): void {
 		this.todo = { ...this.todo, deadline: date.toISOString() };
+	}
+
+	public isSelected(selected: any, prev: any): boolean {
+		return selected.id === prev.id;
 	}
 
 	private toggleOverlay(): void {

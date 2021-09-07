@@ -1,16 +1,16 @@
 import { Handler } from '@netlify/functions';
-import { fragements } from './utils/fragments';
+import { fragments } from './utils/fragments';
 import { client } from './utils/gql';
 import { getTokenFromRequest, getUserId } from './utils/auth';
 
 const operation = 'findTodosByUser';
 
 const query = `
-  ${fragements.TodoFields.value}
+  ${fragments.TodoFields.value}
   query FindTodosByUser($input: String!) {
     findTodosByUser(userId: $input) {
       data {
-        ...${fragements.TodoFields.key}
+        ...${fragments.TodoFields.key}
       }
     }
   }

@@ -25,7 +25,7 @@ const TodoFields = `
   }
 `;
 
-export const fragements = {
+export const fragments = {
 	TodoFields: { key: 'TodoFields', value: TodoFields },
 	ListFields: { key: 'ListFields', value: ListFields },
 };

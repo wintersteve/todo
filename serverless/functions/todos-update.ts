@@ -1,17 +1,17 @@
 import { Handler } from '@netlify/functions';
 import { Variables } from './models';
 import { getTokenFromRequest, getUserId } from './utils/auth';
-import { fragements } from './utils/fragments';
+import { fragments } from './utils/fragments';
 import { client } from './utils/gql';
 import { sanitizeInput } from './utils/sanitize-input';
 
 const operation = 'updateTodo';
 
 const query = `
-	${fragements.TodoFields.value}
+	${fragments.TodoFields.value}
   mutation UpdateTodo($id: ID!, $input: TodoInput!) {
 		${operation}(id: $id, data: $input) {
-			...${fragements.TodoFields.key}
+			...${fragments.TodoFields.key}
 		}
 	}
 `;

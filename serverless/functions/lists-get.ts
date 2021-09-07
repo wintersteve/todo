@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions';
-import { fragements } from './utils/fragments';
+import { fragments } from './utils/fragments';
 import { client } from './utils/gql';
 import { getTokenFromRequest, getUserId } from './utils/auth';
 
@@ -20,16 +20,16 @@ interface FindListsData {
 }
 
 const query = `
-  ${fragements.ListFields.value}
+  ${fragments.ListFields.value}
   query FindLists($input: String!) {
     findDefaultLists(isCustom: false) {
       data {
-        ...${fragements.ListFields.key}
+        ...${fragments.ListFields.key}
       }
     }
     findListsByUser(userId: $input) {
       data {
-        ...${fragements.ListFields.key}
+        ...${fragments.ListFields.key}
       }
     }
   }

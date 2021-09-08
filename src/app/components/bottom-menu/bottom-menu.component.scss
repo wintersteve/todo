@@ -5,9 +5,10 @@
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 	border-top: 3px solid map-get($colors, 'border-primary');
 	bottom: 0;
+	color: #fff;
 	display: none;
 	left: 0;
-	height: 3.75rem;
+	height: 4rem;
 	justify-content: space-evenly;
 	position: fixed;
 	align-items: center;
@@ -34,11 +35,13 @@
 .col {
 	align-items: center;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	flex: 0 0 30%;
+	justify-content: center;
 }
 
 .text {
-	font-size: 0.8rem;
-	line-height: 1;
+	font-family: $font-primary;
+	font-size: 0.7rem;
+	padding-top: 0.05rem;
 }

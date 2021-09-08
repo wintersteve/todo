@@ -9,6 +9,10 @@
 
 .app {
 	height: 100%;
+
+	@include media-breakpoint-down(s) {
+		height: unset;
+	}
 }
 
 .side {

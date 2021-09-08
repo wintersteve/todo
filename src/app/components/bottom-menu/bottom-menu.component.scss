@@ -4,13 +4,10 @@
 .wrapper {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 	border-top: 3px solid map-get($colors, 'border-primary');
-	bottom: 0;
 	color: #fff;
 	display: none;
-	left: 0;
 	height: 4rem;
 	justify-content: space-evenly;
-	position: fixed;
 	align-items: center;
 	width: 100%;
 

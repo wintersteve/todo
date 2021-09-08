@@ -11,7 +11,7 @@
 	height: 100%;
 
 	@include media-breakpoint-down(s) {
-		height: unset;
+		flex: 1 1 auto;
 	}
 }
 

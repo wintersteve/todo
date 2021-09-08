@@ -1,8 +1,8 @@
 <footer class="wrapper">
-	<div class="col">
+	<button class="col">
 		<mat-icon>checklist</mat-icon>
 		<small class="text">TODOS</small>
-	</div>
+	</button>
 	<div class="col">
 		<button
 			mat-fab
@@ -13,8 +13,8 @@
 			<mat-icon>add</mat-icon>
 		</button>
 	</div>
-	<div class="col">
+	<button class="col" (click)="toggled.emit()">
 		<mat-icon>subject</mat-icon>
 		<small class="text">LISTS</small>
-	</div>
+	</button>
 </footer>

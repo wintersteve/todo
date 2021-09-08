@@ -18,8 +18,9 @@ import { ListsService } from 'src/app/shared/services/lists/lists.service';
 export class ListsComponent {
 	@Input() lists: Lists;
 	@Input() selectedList: List;
+
 	@Output() selected = new EventEmitter();
-	@Output() toggled = new EventEmitter();
+
 	@ViewChild('newList') newList: ElementRef;
 
 	public newListTitle = '';

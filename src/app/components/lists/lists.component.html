@@ -2,7 +2,7 @@
 	<mat-list-item
 		*ngFor="let list of lists"
 		[class]="list?.id === selectedList?.id ? 'active' : 'inactive'"
-		(click)="selected.emit(list); toggled.emit()"
+		(click)="selected.emit(list)"
 	>
 		<mat-icon class="icon">{{ list.icon }}</mat-icon>
 		<span>{{ list.title }}</span>

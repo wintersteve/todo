@@ -5,10 +5,11 @@
 	</button>
 	<div class="col">
 		<button
-			mat-fab
+			aria-label="Example icon button with a delete icon"
 			color="primary"
 			class="add-btn"
-			aria-label="Example icon button with a delete icon"
+			mat-fab
+			(click)="clickedAdd.emit()"
 		>
 			<mat-icon>add</mat-icon>
 		</button>

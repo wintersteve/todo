@@ -1,5 +1,6 @@
 @import 'animations';
 @import 'variables';
+@import 'mixins';
 
 .details {
 	position: fixed;
@@ -15,6 +16,12 @@
 	overflow: hidden;
 	animation: slide-in 0.15s ease;
 	z-index: 99;
+
+	@include media-breakpoint-down(s) {
+		border-left: 0;
+		position: absolute;
+		width: 100%;
+	}
 }
 
 .form-field {
@@ -26,11 +33,4 @@
 	display: flex;
 	justify-content: space-between;
 	margin-top: 1.5rem;
-}
-
-@media screen and (max-width: map-get($breakpoints, 's' )) {
-	.details {
-		width: 100%;
-		border-left: 0;
-	}
 }

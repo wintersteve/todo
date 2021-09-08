@@ -8,6 +8,7 @@ import {
 	ChangeDetectorRef,
 } from '@angular/core';
 import { List, Lists } from 'src/app/shared/models/lists';
+import { ListsService } from 'src/app/shared/services/lists/lists.service';
 
 @Component({
 	selector: 'app-lists',
@@ -24,7 +25,10 @@ export class ListsComponent {
 	public newListTitle = '';
 	public clickedAddBtn = false;
 
-	constructor(private cdRef: ChangeDetectorRef) {}
+	constructor(
+		private readonly cdRef: ChangeDetectorRef,
+		private readonly listsService: ListsService
+	) {}
 
 	public get isEmpty() {
 		if (this.newListTitle === '') return true;
@@ -39,10 +43,10 @@ export class ListsComponent {
 
 	public createList(): void {
 		if (!this.isEmpty) {
-			// this.listsService.create(this.newListTitle);
+			this.listsService.createList(this.newListTitle);
 		}
 
-		// this.resetNewList();
+		this.resetNewList();
 	}
 
 	private setFocus() {

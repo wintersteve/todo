@@ -8,8 +8,8 @@ import { EndpointService, Route } from '../endpoint/endpoint.service';
 export const EMPTY_LIST: List = {
 	id: '',
 	title: '',
-	icon: '',
-	isCustom: false,
+	icon: 'layers',
+	isCustom: true,
 };
 
 @Injectable({
@@ -36,6 +36,23 @@ export class ListsService {
 
 	public setSelected(list: List): void {
 		this._selectedList$.next(list);
+	}
+
+	public createList(title: string): void {
+		const input = { ...EMPTY_LIST, title };
+
+		const previousState = this._lists$.value;
+		const updatedState = [...previousState, input];
+
+		this._lists$.next(updatedState);
+
+		this.http
+			.post<List>(this.endpoint.get(Route.CREATE_LIST), {
+				input,
+			})
+			.subscribe((list) => {
+				this._lists$.next([...previousState, list]);
+			});
 	}
 
 	private load(): void {

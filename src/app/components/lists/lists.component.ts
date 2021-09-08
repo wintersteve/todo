@@ -26,31 +26,31 @@ export class ListsComponent {
 
 	constructor(private cdRef: ChangeDetectorRef) {}
 
-	addList(): void {
+	public get isEmpty() {
+		if (this.newListTitle === '') return true;
+		return false;
+	}
+
+	public addList(): void {
 		this.clickedAddBtn = true;
 		this.cdRef.detectChanges();
 		this.setFocus();
 	}
 
-	resetNewList(): void {
+	public createList(): void {
+		if (!this.isEmpty) {
+			// this.listsService.create(this.newListTitle);
+		}
+
+		// this.resetNewList();
+	}
+
+	private setFocus() {
+		this.newList.nativeElement.focus();
+	}
+
+	private resetNewList(): void {
 		this.clickedAddBtn = false;
 		this.newListTitle = '';
-	}
-
-	createList(): void {
-		if (this.notEmpty) {
-			// this.listsService.create(this.newListTitle);
-			// this.resetNewList();
-		}
-		return;
-	}
-
-	get notEmpty() {
-		if (this.newListTitle !== '') return true;
-		return false;
-	}
-
-	setFocus() {
-		this.newList.nativeElement.focus();
 	}
 }

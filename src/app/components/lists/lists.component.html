@@ -5,13 +5,32 @@
 		(click)="selected.emit(list)"
 	>
 		<mat-icon class="icon">{{ list.icon }}</mat-icon>
-		<span>{{ list.title }}</span>
+		<span *ngIf="list.id !== listInEditMode; else editListTemplate">{{
+			list.title
+		}}</span>
+
+		<ng-template #editListTemplate>
+			<mat-form-field class="new-list">
+				<input
+					#listToEdit
+					matInput
+					id="listToEdit"
+					name="listToEdit"
+					[(ngModel)]="list.title"
+					(blur)="updateList(list)"
+					(keydown.enter)="updateList(list)"
+					autocomplete="off"
+					minlength="4"
+					required
+				/>
+			</mat-form-field>
+		</ng-template>
 
 		<button
 			mat-icon-button
 			type="button"
 			class="edit-wrapper"
-			(click)="$event.stopPropagation()"
+			(click)="editList($event, list.id)"
 			*ngIf="list.isCustom"
 		>
 			<mat-icon class="edit" aria-hidden="false" aria-label="list options"

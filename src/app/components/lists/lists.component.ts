@@ -22,24 +22,29 @@ export class ListsComponent {
 	@Output() selected = new EventEmitter();
 
 	@ViewChild('newList') newList: ElementRef;
+	@ViewChild('listToEdit') listToEdit: ElementRef;
 
 	public newListTitle = '';
 	public clickedAddBtn = false;
+	public listInEditMode: string;
 
 	constructor(
 		private readonly cdRef: ChangeDetectorRef,
 		private readonly listsService: ListsService
 	) {}
 
-	public get isEmpty() {
-		if (this.newListTitle === '') return true;
-		return false;
-	}
-
 	public addList(): void {
 		this.clickedAddBtn = true;
 		this.cdRef.detectChanges();
-		this.setFocus();
+		this.newList.nativeElement.focus();
+	}
+
+	public editList(event: MouseEvent, id: string): void {
+		event.stopPropagation();
+
+		this.listInEditMode = id;
+		this.cdRef.detectChanges();
+		this.listToEdit.nativeElement.focus();
 	}
 
 	public createList(): void {
@@ -50,12 +55,20 @@ export class ListsComponent {
 		this.resetNewList();
 	}
 
-	private setFocus() {
-		this.newList.nativeElement.focus();
+	public updateList(list: List): void {
+		this.listsService.updateList(list);
+
+		this.resetNewList();
 	}
 
 	private resetNewList(): void {
 		this.clickedAddBtn = false;
 		this.newListTitle = '';
+		this.listInEditMode = '';
+	}
+
+	private get isEmpty() {
+		if (this.newListTitle === '') return true;
+		return false;
 	}
 }

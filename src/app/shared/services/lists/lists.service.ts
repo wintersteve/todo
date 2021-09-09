@@ -55,6 +55,22 @@ export class ListsService {
 			});
 	}
 
+	public updateList(list: List): void {
+		const previousState = this._lists$.value;
+		const updatedState = previousState.map((listInState) =>
+			listInState.id === list.id ? list : listInState
+		);
+
+		this._lists$.next(updatedState);
+
+		this.http
+			.post<List>(this.endpoint.get(Route.UPDATE_LIST), {
+				id: list.id,
+				input: list,
+			})
+			.subscribe();
+	}
+
 	private load(): void {
 		this.http
 			.post<Lists>(this.endpoint.get(Route.GET_LISTS), {})

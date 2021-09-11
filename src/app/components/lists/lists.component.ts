@@ -7,8 +7,8 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 } from '@angular/core';
+import { ListsAdapter } from 'src/app/shared/adapters/lists.adapter';
 import { List, Lists } from 'src/app/shared/models/lists';
-import { ListsService } from 'src/app/shared/services/lists/lists.service';
 
 @Component({
 	selector: 'app-lists',
@@ -19,6 +19,8 @@ export class ListsComponent {
 	@Input() lists: Lists;
 	@Input() selectedList: List;
 
+	@Output() added = new EventEmitter<string>();
+	@Output() updated = new EventEmitter<List>();
 	@Output() selected = new EventEmitter();
 
 	@ViewChild('newList') newList: ElementRef;
@@ -28,10 +30,7 @@ export class ListsComponent {
 	public clickedAddBtn = false;
 	public listInEditMode: string;
 
-	constructor(
-		private readonly cdRef: ChangeDetectorRef,
-		private readonly listsService: ListsService
-	) {}
+	constructor(private readonly cdRef: ChangeDetectorRef) {}
 
 	public addList(): void {
 		this.clickedAddBtn = true;
@@ -49,14 +48,14 @@ export class ListsComponent {
 
 	public createList(): void {
 		if (!this.isEmpty) {
-			this.listsService.createList(this.newListTitle);
+			this.added.emit(this.newListTitle);
 		}
 
 		this.resetNewList();
 	}
 
 	public updateList(list: List): void {
-		this.listsService.updateList(list);
+		this.updated.emit(list);
 
 		this.resetNewList();
 	}

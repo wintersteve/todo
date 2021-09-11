@@ -2,20 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { skip } from 'rxjs/operators';
+import { ListsAdapter } from '../../adapters/lists.adapter';
+import { EMPTY_LIST } from '../../constants/lists';
 import { List, Lists } from '../../models/lists';
 import { EndpointService, Route } from '../endpoint/endpoint.service';
 
-export const EMPTY_LIST: List = {
-	id: '',
-	title: '',
-	icon: 'layers',
-	isCustom: true,
-};
-
-@Injectable({
-	providedIn: 'root',
-})
-export class ListsService {
+@Injectable()
+export class ListsService implements ListsAdapter {
 	private readonly _lists$ = new BehaviorSubject<Lists>(undefined);
 	private readonly _selectedList$ = new BehaviorSubject<List>(undefined);
 
@@ -71,7 +64,7 @@ export class ListsService {
 			.subscribe();
 	}
 
-	private load(): void {
+	public load(): void {
 		this.http
 			.post<Lists>(this.endpoint.get(Route.GET_LISTS), {})
 			.subscribe((lists) => {

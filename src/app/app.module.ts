@@ -10,6 +10,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PagesModule } from './pages/pages.module';
 import { NetlifyIdentityModule } from './libs/netlify-identity/netlify-identity.module';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { DemoModule } from './libs/demo/demo.module';
+import { LISTS_SERVICE, TODOS_SERVICE } from './shared/constants/tokens';
+import { ListsService } from './shared/services/lists/lists.service';
+import { TodosService } from './shared/services/todos/todos.service';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -23,6 +27,7 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production,
 		}),
+		DemoModule,
 	],
 	bootstrap: [AppComponent],
 	providers: [
@@ -30,6 +35,14 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,
 			multi: true,
+		},
+		{
+			provide: LISTS_SERVICE,
+			useClass: ListsService,
+		},
+		{
+			provide: TODOS_SERVICE,
+			useClass: TodosService,
 		},
 	],
 })

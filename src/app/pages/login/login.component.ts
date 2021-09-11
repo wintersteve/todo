@@ -18,6 +18,6 @@ export class LoginComponent {
 	}
 
 	public onDemo(): void {
-		this.router.navigateByUrl('/#demo');
+		this.router.navigate(['demo']);
 	}
 }

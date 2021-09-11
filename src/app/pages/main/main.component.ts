@@ -1,81 +1,100 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map, shareReplay } from 'rxjs/operators';
 import { groupBy } from 'src/app/shared/utils/group-by';
-import { ListsService } from 'src/app/shared/services/lists/lists.service';
-import { Todo, TodosGroupedByList } from 'src/app/shared/models/todos';
-import {
-	EMPTY_TODO,
-	TodosService,
-} from 'src/app/shared/services/todos/todos.service';
-import { List } from 'src/app/shared/models/lists';
+import { Todo, Todos, TodosGroupedByList } from 'src/app/shared/models/todos';
+import { List, Lists } from 'src/app/shared/models/lists';
+import { ListsAdapter } from 'src/app/shared/adapters/lists.adapter';
+import { EMPTY_TODO } from 'src/app/shared/constants/todos';
+import { TodosAdapter } from 'src/app/shared/adapters/todos.adapter';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
 	selector: 'app-main',
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
 })
 export class MainComponent {
+	public listsAdapter: ListsAdapter;
+	public todosAdapter: TodosAdapter;
+
 	public isListsMobileExpanded = false;
+	public lists$: Observable<Lists>;
+	public selectedList$: Observable<List>;
+	public selectedTodo$: Observable<Todo>;
+	public customLists$: Observable<Lists>;
+	public filteredTodos$: Observable<Todos>;
+	public todosGroupedByLists$: Observable<TodosGroupedByList>;
+	public hasTodos$: Observable<boolean>;
+	public showDetails$: Observable<boolean>;
 
-	public readonly lists$ = this.listsService.getLists().pipe(shareReplay());
+	constructor(
+		protected readonly route: ActivatedRoute,
+		protected readonly injector: Injector
+	) {
+		const listsService = route.snapshot.data['listsService'];
+		const todosService = route.snapshot.data['todosService'];
 
-	public readonly selectedList$ = this.listsService
-		.getSelected()
-		.pipe(shareReplay());
+		this.todosAdapter = injector.get<any>(todosService);
+		this.listsAdapter = injector.get<any>(listsService);
 
-	public readonly selectedTodo$ = this.todosService
-		.getSelected()
-		.pipe(shareReplay());
+		this.lists$ = this.listsAdapter.getLists().pipe(shareReplay());
 
-	public readonly customLists$ = this.lists$.pipe(
-		map((lists) => lists.filter((list) => list.isCustom))
-	);
+		this.selectedList$ = this.listsAdapter.getSelected().pipe(shareReplay());
 
-	public readonly filteredTodos$ = this.todosService.filteredTodos$;
+		this.selectedTodo$ = this.todosAdapter.getSelected().pipe(shareReplay());
 
-	public readonly todosGroupedByLists$: Observable<TodosGroupedByList> =
-		this.filteredTodos$.pipe(
+		this.customLists$ = this.lists$.pipe(
+			map((lists) => lists.filter((list) => list.isCustom))
+		);
+
+		this.filteredTodos$ = this.todosAdapter.filteredTodos$;
+
+		this.todosGroupedByLists$ = this.filteredTodos$.pipe(
 			map((todos) => groupBy<Todo>(todos, 'list.title'))
 		);
 
-	public readonly hasTodos$ = this.todosGroupedByLists$.pipe(
-		first((groups) => !!groups),
-		map((groups) => !!Object.keys(groups).length)
-	);
+		this.hasTodos$ = this.todosGroupedByLists$?.pipe(
+			first((groups) => !!groups),
+			map((groups) => !!Object.keys(groups).length)
+		);
 
-	public readonly showDetails$ = this.selectedTodo$.pipe(
-		map((selectedTodo) => !!selectedTodo?.id || selectedTodo?.isNew)
-	);
-
-	constructor(
-		private readonly listsService: ListsService,
-		private readonly todosService: TodosService
-	) {}
+		this.showDetails$ = this.selectedTodo$.pipe(
+			map((selectedTodo) => !!selectedTodo?.id || selectedTodo?.isNew)
+		);
+	}
 
 	public toggleLists(): void {
 		this.isListsMobileExpanded = !this.isListsMobileExpanded;
 	}
 
 	public selectTodo(todo: Todo): void {
-		this.todosService.setSelected(todo);
+		this.todosAdapter.setSelected(todo);
 	}
 
 	public selectList(list: List): void {
-		this.listsService.setSelected(list);
+		this.listsAdapter.setSelected(list);
+	}
+
+	public createList(listTitle: string): void {
+		this.listsAdapter.createList(listTitle);
 	}
 
 	public createTodo(todo: Todo): void {
-		this.todosService.createTodo(todo);
+		this.todosAdapter.createTodo(todo);
+	}
+
+	public updateList(list: List): void {
+		this.listsAdapter.updateList(list);
 	}
 
 	public updateTodo(todo: Todo): void {
-		this.todosService.updateTodo(todo);
+		this.todosAdapter.updateTodo(todo);
 	}
 
 	public saveTodo(todo: Todo): void {
 		if (todo.isNew) {
 			const { isNew, ...rest } = todo;
-			console.log('CREATE', rest);
 			this.createTodo(rest);
 		} else {
 			this.updateTodo(todo);
@@ -85,6 +104,6 @@ export class MainComponent {
 	}
 
 	public addTodo(): void {
-		this.todosService.setSelected(EMPTY_TODO);
+		this.todosAdapter.setSelected(EMPTY_TODO);
 	}
 }

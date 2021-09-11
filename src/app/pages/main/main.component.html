@@ -9,6 +9,8 @@
 			[selectedList]="selectedList$ | async"
 			[lists]="lists$ | async"
 			(selected)="selectList($event)"
+			(added)="createList($event)"
+			(updated)="updateList($event)"
 		></app-lists>
 	</mat-drawer>
 	<mat-drawer-content class="main">

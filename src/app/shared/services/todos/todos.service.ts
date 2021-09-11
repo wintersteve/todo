@@ -1,32 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { isToday, parseISO } from 'date-fns';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, skip, switchMap, tap } from 'rxjs/operators';
+import { TodosAdapter } from '../../adapters/todos.adapter';
+import { LISTS_SERVICE } from '../../constants/tokens';
 import { DEFAULT_LIST, List } from '../../models/lists';
 import { Todo, Todos } from '../../models/todos';
 import { EndpointService, Route } from '../endpoint/endpoint.service';
-import { EMPTY_LIST, ListsService } from '../lists/lists.service';
-
-export const EMPTY_TODO: Todo = {
-	id: undefined,
-	title: '',
-	notes: '',
-	list: EMPTY_LIST,
-	deadline: '',
-	isUrgent: false,
-	isDone: false,
-	isNew: true,
-};
+import { ListsService } from '../lists/lists.service';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class TodosService {
+export class TodosService implements TodosAdapter {
 	private readonly _todos$ = new BehaviorSubject<Todos>(undefined);
 	private readonly _selectedTodo$ = new BehaviorSubject<Todo>(undefined);
 
-	public readonly filteredTodos$ = this.listsService.getSelected().pipe(
+	public readonly filteredTodos$ = this.listsAdapter.getSelected().pipe(
 		filter((selectedList) => !!selectedList),
 		switchMap((selectedList) =>
 			this._todos$.pipe(
@@ -39,7 +30,7 @@ export class TodosService {
 	constructor(
 		private readonly endpoint: EndpointService,
 		private readonly http: HttpClient,
-		private readonly listsService: ListsService
+		@Inject(LISTS_SERVICE) private readonly listsAdapter: ListsService
 	) {
 		this.load();
 	}
@@ -86,7 +77,7 @@ export class TodosService {
 			.subscribe();
 	}
 
-	private load(): void {
+	public load(): void {
 		this.http
 			.post<Todos>(this.endpoint.get(Route.GET_TODOS), {})
 			.subscribe((lists) => {
@@ -94,7 +85,7 @@ export class TodosService {
 			});
 	}
 
-	private findByList(selectedList: List, todos: Todo[]): Todo[] {
+	public findByList(selectedList: List, todos: Todo[]): Todo[] {
 		switch (selectedList.id) {
 			case DEFAULT_LIST.INBOX:
 				return todos;
